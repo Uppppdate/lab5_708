@@ -4,27 +4,27 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class IdManager {
-    public static ArrayList<Integer> idList;
+    public static ArrayList<Long> idList = new ArrayList<>();
+    public static final Long MIN = 0L;
+    public static final Long MAX = 100000L;
 
-    public IdManager() {
-        idList = new ArrayList<>();
+    public static boolean checkId(Long id){
+        return idList.contains(id);
     }
-
-    public static Long generateId(){
+    public static Long generateId() {
         SecureRandom secureRandom = new SecureRandom();
-        int id = secureRandom.nextInt(100000);
-        while (idList.contains(id)){
-            id = secureRandom.nextInt();
+        Long id = secureRandom.nextLong(MAX);
+        while (idList.contains(id)) {
+            id = secureRandom.nextLong(MAX);
         }
         idList.add(id);
-        return (long) id;
+        return id;
     }
 
-    public static boolean removeId(int id){
+    public static boolean removeId(Long id) {
         if (idList.contains(id)) {
             idList.remove(id);
             return true;
-        }
-        else return false;
+        } else return false;
     }
 }

@@ -4,14 +4,18 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class OrganizationBuilder {
-    private final Long id = 0L; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name = "unknown"; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates = new CoordinatesBuilder().build(); //Поле не может быть null
-    private java.util.Date creationDate = new Date(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private float annualTurnover = 0; //Значение поля должно быть больше 0
-    private Integer employeesCount = 0; //Поле не может быть null, Значение поля должно быть больше 0
-    private OrganizationType type = OrganizationType.PUBLIC; //Поле не может быть null
-    private Address officialAddress = new AddressBuilder().build(); //Поле может быть null
+    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private String name; //Поле не может быть null, Строка не может быть пустой
+    private Coordinates coordinates; //Поле не может быть null
+    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private float annualTurnover; //Значение поля должно быть больше 0
+    private Integer employeesCount; //Поле не может быть null, Значение поля должно быть больше 0
+    private OrganizationType type; //Поле не может быть null
+    private Address officialAddress; //Поле может быть null
+
+    public OrganizationBuilder() {
+        setValuesAsDefault();
+    }
 
     public OrganizationBuilder setName(String name) {
         if(Validator.isNull(name)){
@@ -34,6 +38,14 @@ public class OrganizationBuilder {
             return this;
         }
         this.creationDate = creationDate;
+        return this;
+    }
+
+    public OrganizationBuilder setCreationDate(){
+        if(Validator.isNull(creationDate)){
+            return this;
+        }
+        this.creationDate = new Date();
         return this;
     }
 
@@ -69,7 +81,32 @@ public class OrganizationBuilder {
         return this;
     }
 
+    public OrganizationBuilder setId(Long id){
+        if(!Validator.checkId(id)){
+            return this;
+        }
+        this.id = id;
+        return this;
+    }
+    public OrganizationBuilder generateId(){
+        id = IdManager.generateId();
+        return this;
+    }
+    private void setValuesAsDefault(){
+        id = 0L;
+        name = "unknown";
+        coordinates = new CoordinatesBuilder().build();
+        creationDate = new Date(0);
+        annualTurnover = 0;
+        employeesCount = 0;
+        type = OrganizationType.PUBLIC;
+        officialAddress = new AddressBuilder().build();
+    }
+
+
     public Organization build(){
-        return new Organization(IdManager.generateId(), name, coordinates, creationDate, annualTurnover,employeesCount,type,officialAddress);
+        Organization org =  new Organization(id, name, coordinates, creationDate, annualTurnover,employeesCount,type,officialAddress);
+        setValuesAsDefault();
+        return org;
     }
 }

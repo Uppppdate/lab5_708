@@ -6,11 +6,14 @@ public class LocationBuilder {
     private Long z; //Поле не может быть null
 
     public LocationBuilder() {
+        setValuesAsDefault();
+    }
+
+    private void setValuesAsDefault(){
         x = 0d;
         y = 0d;
         z = 0L;
     }
-
     public LocationBuilder setX(double x){
         this.x = x;
         return this;
@@ -28,6 +31,8 @@ public class LocationBuilder {
     }
 
     public Location build(){
-        return new Location(x,y,z);
+        Location location = new Location(x,y,z);
+        setValuesAsDefault();
+        return location;
     }
 }

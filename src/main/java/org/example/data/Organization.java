@@ -86,4 +86,18 @@ public class Organization {
         this.type = type;
         this.officialAddress = officialAddress;
     }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", coordinates=" + coordinates +
+                ", creationDate=" + creationDate +
+                ", annualTurnover=" + annualTurnover +
+                ", employeesCount=" + employeesCount +
+                ", type=" + type +
+                ", officialAddress=" + officialAddress +
+                '}';
+    }
 }

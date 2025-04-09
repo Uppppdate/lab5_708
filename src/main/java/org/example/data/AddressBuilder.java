@@ -6,11 +6,13 @@ public class AddressBuilder {
     private Location town; //Поле может быть null
 
     public AddressBuilder() {
+        setValuesAsDefault();
+    }
+    private void setValuesAsDefault(){
         street = " ";
         zipCode = " ";
         town = new LocationBuilder().build();
     }
-
     public AddressBuilder setStreet(String street){
         if(Validator.checkStreet(street)){
             this.street = street;
@@ -33,6 +35,8 @@ public class AddressBuilder {
         return this;
     }
     public Address build(){
-        return new Address(street, zipCode, town);
+        Address address = new Address(street, zipCode, town);
+        setValuesAsDefault();
+        return address;
     }
 }
