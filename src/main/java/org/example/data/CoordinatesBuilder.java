@@ -1,8 +1,10 @@
 package org.example.data;
 
+import org.example.files.DataErrorException;
+
 public class CoordinatesBuilder {
     private long x;
-    private double y; //Максимальное значение поля: 482
+    private double y;
 
     public CoordinatesBuilder() {
         setValuesAsDefault();
@@ -13,16 +15,23 @@ public class CoordinatesBuilder {
         y = 0;
     }
 
-    public CoordinatesBuilder setX(long x) {
-        this.x = x;
+    public CoordinatesBuilder setX(String x) {
+        try{
+            Validator.checkCoordinatesX(x);
+        } catch (DataErrorException e){
+            return this;
+        }
+        this.x = Long.parseLong(x);
         return this;
     }
 
-    public CoordinatesBuilder setY(double y) {
-        if (y > 482) {
+    public CoordinatesBuilder setY(String y) {
+        try{
+            Validator.checkCoordinatesY(y);
+        } catch (DataErrorException e){
             return this;
         }
-        this.y = y;
+        this.y = Double.parseDouble(y);
         return this;
     }
 

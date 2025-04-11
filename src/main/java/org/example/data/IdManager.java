@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class IdManager {
-    public static ArrayList<Long> idList = new ArrayList<>();
+    private static final ArrayList<Long> idList = new ArrayList<>();
     public static final Long MIN = 0L;
     public static final Long MAX = 100000L;
 
@@ -20,7 +20,12 @@ public class IdManager {
         idList.add(id);
         return id;
     }
-
+    public static boolean addId(Long id){
+        if (!idList.contains(id)) {
+            idList.add(id);
+            return true;
+        } else return false;
+    }
     public static boolean removeId(Long id) {
         if (idList.contains(id)) {
             idList.remove(id);

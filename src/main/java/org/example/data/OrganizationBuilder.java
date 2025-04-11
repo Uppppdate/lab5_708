@@ -1,24 +1,67 @@
 package org.example.data;
 
+import org.example.files.DataErrorException;
+import org.example.files.DataParser;
+
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 
 public class OrganizationBuilder {
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private float annualTurnover; //Значение поля должно быть больше 0
-    private Integer employeesCount; //Поле не может быть null, Значение поля должно быть больше 0
-    private OrganizationType type; //Поле не может быть null
-    private Address officialAddress; //Поле может быть null
+    private Long id;
+    public static final Long ID_DEFAULT = 0L;
+    private String name;
+    public static final String NAME_DEFAULT = "unknown";
+    private Coordinates coordinates;
+    private CoordinatesBuilder crb;
+    private java.util.Date creationDate;
+    public static final Date CREATION_DATE_DEFAULT = new Date(0);
+    private float annualTurnover;
+    public static final float ANNUAL_TURNOVER_DEFAULT = 1L;
+    private Integer employeesCount;
+    public static final Integer EMPLOYEES_COUNT_DEFAULT = 1;
+    private OrganizationType type;
+    public static final OrganizationType ORGANIZATION_TYPE_DEFAULT = OrganizationType.PUBLIC;
+    private Address officialAddress;
+
+    private AddressBuilder arb;
 
     public OrganizationBuilder() {
         setValuesAsDefault();
     }
 
+    private void setValuesAsDefault() {
+        crb = new CoordinatesBuilder();
+        arb = new AddressBuilder();
+        id = ID_DEFAULT;
+        name = NAME_DEFAULT;
+        coordinates = crb.build();
+        creationDate = CREATION_DATE_DEFAULT;
+        annualTurnover = ANNUAL_TURNOVER_DEFAULT;
+        employeesCount = EMPLOYEES_COUNT_DEFAULT;
+        type = ORGANIZATION_TYPE_DEFAULT;
+        officialAddress = arb.build();
+    }
+
+    public OrganizationBuilder setId(String id) {
+        try {
+            Validator.checkId(id);
+        } catch (DataErrorException e) {
+            return this;
+        }
+        this.id = Long.parseLong(id);
+        return this;
+    }
+
+    public OrganizationBuilder generateId() {
+        id = IdManager.generateId();
+        return this;
+    }
+
     public OrganizationBuilder setName(String name) {
-        if(Validator.isNull(name)){
+        try {
+            Validator.checkName(name);
+        } catch (DataErrorException e){
             return this;
         }
         this.name = name;
@@ -26,86 +69,113 @@ public class OrganizationBuilder {
     }
 
     public OrganizationBuilder setCoordinates(Coordinates coordinates) {
-        if(Validator.isNull(coordinates)){
+        try {
+            Validator.isNull(coordinates);
+        } catch (NullPointerException e){
             return this;
         }
         this.coordinates = coordinates;
         return this;
     }
 
-    public OrganizationBuilder setCreationDate(Date creationDate) {
-        if(Validator.isNull(creationDate)){
-            return this;
-        }
-        this.creationDate = creationDate;
+    public OrganizationBuilder setCoordinatesX(String x) {
+        crb.setX(x);
         return this;
     }
 
-    public OrganizationBuilder setCreationDate(){
-        if(Validator.isNull(creationDate)){
+    public OrganizationBuilder setCoordinatesY(String y) {
+        crb.setY(y);
+        return this;
+    }
+
+    public OrganizationBuilder setCreationDate(String creationDate) {
+        try {
+            Validator.checkDate(creationDate);
+        } catch (DataErrorException e){
             return this;
         }
+        try {
+            this.creationDate = DataParser.formatter.parse(creationDate);
+        } catch (ParseException e) {
+            return this;
+        }
+        return this;
+    }
+
+    public OrganizationBuilder setCreationDate() {
         this.creationDate = new Date();
         return this;
     }
 
-    public OrganizationBuilder setAnnualTurnover(float annualTurnover) {
-        if(annualTurnover<=0){
+    public OrganizationBuilder setAnnualTurnover(String annualTurnover) {
+        try {
+            Validator.checkAnnualTurnover(annualTurnover);
+        } catch (DataErrorException e){
             return this;
         }
-        this.annualTurnover = annualTurnover;
+        this.annualTurnover = Float.parseFloat(annualTurnover);
         return this;
     }
 
-    public OrganizationBuilder setEmployeesCount(Integer employeesCount) {
-        if(Validator.isNull(employeesCount)||employeesCount<=0){
+    public OrganizationBuilder setEmployeesCount(String employeesCount) {
+        try {
+            Validator.checkEmployeesCount(employeesCount);
+        } catch (DataErrorException e){
             return this;
         }
-        this.employeesCount = employeesCount;
-        return this;
-    }
-
-    public OrganizationBuilder setType(OrganizationType type) {
-        if(!(Arrays.stream(OrganizationType.values()).toList().contains(type))){
-            return this;
-        }
-        this.type = type;
+        this.employeesCount = Integer.parseInt(employeesCount);
         return this;
     }
 
     public OrganizationBuilder setOfficialAddress(Address officialAddress) {
-        if(Validator.isNull(officialAddress)){
+        try {
+            Validator.isNull(name);
+        } catch (NullPointerException e){
             return this;
         }
         this.officialAddress = officialAddress;
         return this;
     }
 
-    public OrganizationBuilder setId(Long id){
-        if(!Validator.checkId(id)){
+    public OrganizationBuilder setAddressStreet(String street) {
+        arb.setStreet(street);
+        return this;
+    }
+
+    public OrganizationBuilder setAddressZipCode(String zipCode) {
+        arb.setZipCode(zipCode);
+        return this;
+    }
+
+    public OrganizationBuilder setLocationX(String x) {
+        arb.setLocationX(x);
+        return this;
+    }
+
+    public OrganizationBuilder setLocationY(String y) {
+        arb.setLocationY(y);
+        return this;
+    }
+
+    public OrganizationBuilder setLocationZ(String z) {
+        arb.setLocationZ(z);
+        return this;
+    }
+
+    public OrganizationBuilder setType(String type) {
+        try {
+            Validator.checkOrganizationType(name);
+        } catch (DataErrorException e){
             return this;
         }
-        this.id = id;
+        this.type = OrganizationType.valueOf(type);
         return this;
     }
-    public OrganizationBuilder generateId(){
-        id = IdManager.generateId();
-        return this;
-    }
-    private void setValuesAsDefault(){
-        id = 0L;
-        name = "unknown";
-        coordinates = new CoordinatesBuilder().build();
-        creationDate = new Date(0);
-        annualTurnover = 0;
-        employeesCount = 0;
-        type = OrganizationType.PUBLIC;
-        officialAddress = new AddressBuilder().build();
-    }
 
-
-    public Organization build(){
-        Organization org =  new Organization(id, name, coordinates, creationDate, annualTurnover,employeesCount,type,officialAddress);
+    public Organization build() {
+        coordinates = crb.build();
+        officialAddress = arb.build();
+        Organization org = new Organization(id, name, coordinates, creationDate, annualTurnover, employeesCount, type, officialAddress);
         setValuesAsDefault();
         return org;
     }

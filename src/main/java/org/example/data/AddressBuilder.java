@@ -1,42 +1,80 @@
 package org.example.data;
 
+import org.example.files.DataErrorException;
+
 public class AddressBuilder {
-    private String street; //Длина строки не должна быть больше 85, Поле может быть null
-    private String zipCode; //Поле не может быть null
-    private Location town; //Поле может быть null
+    private String street;
+    public static final String STREET_DEFAULT = " ";
+    private String zipCode;
+    public static final String ZIP_CODE_DEFAULT = " ";
+    private Location town;
+    private LocationBuilder lcb;
 
     public AddressBuilder() {
         setValuesAsDefault();
     }
-    private void setValuesAsDefault(){
-        street = " ";
-        zipCode = " ";
-        town = new LocationBuilder().build();
+
+    private void setValuesAsDefault() {
+        lcb = new LocationBuilder();
+        street = STREET_DEFAULT;
+        zipCode = ZIP_CODE_DEFAULT;
+        town = lcb.build();
     }
-    public AddressBuilder setStreet(String street){
-        if(Validator.checkStreet(street)){
-            this.street = street;
+
+    public AddressBuilder setStreet(String street) {
+        try {
+            Validator.checkStreet(street);
+        } catch (DataErrorException e) {
             return this;
         }
+        this.street = street;
         return this;
     }
-    public AddressBuilder setZipCode(String zipCode){
-        if(Validator.isNull(zipCode)){
+
+    public AddressBuilder setZipCode(String zipCode) {
+        try {
+            Validator.checkZipCode(zipCode);
+        } catch (DataErrorException e) {
             return this;
         }
         this.zipCode = zipCode;
         return this;
     }
-    public AddressBuilder setLocation(Location town){
-        if(Validator.isNull(town)){
-            return this;
-        }
-        this.town = town;
+
+    public AddressBuilder setLocationX(String x) {
+        lcb.setX(x);
         return this;
     }
-    public Address build(){
-        Address address = new Address(street, zipCode, town);
+
+    public AddressBuilder setLocationY(String y) {
+        lcb.setY(y);
+        return this;
+    }
+
+    public AddressBuilder setLocationZ(String z) {
+        lcb.setZ(z);
+        return this;
+    }
+
+    public Address build() {
+        Location location = lcb.build();
+        if (street.equals(STREET_DEFAULT) && zipCode.equals(ZIP_CODE_DEFAULT) && lcb==null) {
+            return null;
+        }
+        Address address = new Address(street, zipCode, location);
         setValuesAsDefault();
         return address;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public Location getTown() {
+        return town;
     }
 }
