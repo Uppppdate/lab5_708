@@ -58,7 +58,7 @@ public class AddressBuilder {
 
     public Address build() {
         Location location = lcb.build();
-        if (street.equals(STREET_DEFAULT) && zipCode.equals(ZIP_CODE_DEFAULT) && lcb==null) {
+        if (street.equals(STREET_DEFAULT) && zipCode.equals(ZIP_CODE_DEFAULT) && location==null) {
             return null;
         }
         Address address = new Address(street, zipCode, location);

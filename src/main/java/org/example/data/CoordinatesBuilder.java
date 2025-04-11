@@ -4,15 +4,16 @@ import org.example.files.DataErrorException;
 
 public class CoordinatesBuilder {
     private long x;
+    public static final long X_DEFAULT = 0;
     private double y;
-
+    public static final long Y_DEFAULT = 0;
     public CoordinatesBuilder() {
         setValuesAsDefault();
     }
 
     private void setValuesAsDefault() {
-        x = 0;
-        y = 0;
+        x = X_DEFAULT;
+        y = Y_DEFAULT;
     }
 
     public CoordinatesBuilder setX(String x) {

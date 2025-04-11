@@ -1,5 +1,7 @@
 package org.example.data;
 
+import org.example.files.DataParser;
+
 import java.util.Date;
 
 public class Organization {
@@ -99,5 +101,21 @@ public class Organization {
                 ", type=" + type +
                 ", officialAddress=" + officialAddress +
                 '}';
+    }
+
+    public String toCsv(){
+        char del = ',';
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(del).append(name).append(del).append(coordinates.toCsv()).append(del)
+                .append(DataParser.formatter.format(creationDate)).append(del)
+                .append(annualTurnover).append(del).append(employeesCount).append(del)
+                .append(type.name()).append(del);
+        if(officialAddress==null){
+            sb.append(Address.toCsvDefault());
+        } else {
+            sb.append(officialAddress.toCsv());
+        }
+        sb.append('\n');
+        return sb.toString();
     }
 }

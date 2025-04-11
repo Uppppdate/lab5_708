@@ -46,6 +46,7 @@ public class CollectionManager {
                 .setLocationZ(fullsize_data[12])
                 .build();
         orgSet.add(org);
+        IdManager.addId(org.getId());
         }
     }
 }

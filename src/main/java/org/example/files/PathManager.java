@@ -8,13 +8,14 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class PathManager {
-
+    public static Path CURRENT_PATH;
     public static File getFileFromPath(String path) throws InvalidPathException, FileErrorException {
         Path filepath = Paths.get(path);
         File file = filepath.toFile();
         if (!(file.canRead() & file.canWrite() & file.exists())) {
             throw new FileErrorException(path);
         }
+        CURRENT_PATH = filepath;
         return file;
     }
 
