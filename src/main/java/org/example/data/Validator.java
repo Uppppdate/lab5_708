@@ -108,8 +108,9 @@ public class Validator {
 
     public static boolean checkStreet(String street) throws DataErrorException {
         try {
-            isNull(street);
+            if(street!=null){
             if (street.length() > 85) throw new DataErrorException("Wrong annual turnover");
+            }
         } catch (NullPointerException e) {
             throw new DataErrorException("Wrong annual turnover");
         }
@@ -130,7 +131,7 @@ public class Validator {
             isNull(x);
             double new_x = Double.parseDouble(x);
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong y in coordinates");
+            throw new DataErrorException("Wrong x in coordinates");
         }
         return true;
     }
@@ -150,7 +151,7 @@ public class Validator {
             isNull(z);
             Long new_z = Long.parseLong(z);
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong y in coordinates");
+            throw new DataErrorException("Wrong z in coordinates");
         }
         return true;
     }

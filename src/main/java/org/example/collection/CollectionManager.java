@@ -11,7 +11,10 @@ import java.util.LinkedHashSet;
 public class CollectionManager {
     private static LinkedHashSet<Organization> orgSet;
 
+    private static Date initializationDate;
+
     public CollectionManager() {
+        initializationDate = new Date();
         orgSet = new LinkedHashSet<>();
     }
 
@@ -19,8 +22,12 @@ public class CollectionManager {
         return orgSet;
     }
 
-    public static void setOrgSet(LinkedHashSet<Organization> orgSet) {
-        CollectionManager.orgSet = orgSet;
+    public static Date getInitializationDate() {
+        return initializationDate;
+    }
+
+    public static void clearCollection() {
+        orgSet.clear();
     }
 
     public static void addOrganizationFromData(String[] data) throws DataErrorException{

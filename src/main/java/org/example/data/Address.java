@@ -25,11 +25,22 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "street='" + street + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", town=" + town +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Улица: ");
+        if (street==null || street.equals(AddressBuilder.STREET_DEFAULT)){
+            sb.append("Неизвестна");
+        } else {sb.append(street);}
+        sb.append(", Индекс: ");
+        if(zipCode==null || zipCode.equals(AddressBuilder.ZIP_CODE_DEFAULT)){
+            sb.append("Неизвестен");
+        } else {sb.append(zipCode);}
+        sb.append(", Город: ");
+        if (town == null){
+            sb.append("Неизвестен");
+        } else {
+            sb.append(town);
+        }
+        return sb.toString();
     }
 
     public String toCsv(){

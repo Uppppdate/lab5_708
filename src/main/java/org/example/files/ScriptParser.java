@@ -1,9 +1,8 @@
 package org.example.files;
 
 
-public class ScriptParser implements Parser{
-    @Override
+public class ScriptParser {
     public void toParse(String path) {
-        //i'll do it later
+        //I'll do it later
     }
 }

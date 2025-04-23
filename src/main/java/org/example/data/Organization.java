@@ -91,17 +91,20 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", annualTurnover=" + annualTurnover +
-                ", employeesCount=" + employeesCount +
-                ", type=" + type +
-                ", officialAddress=" + officialAddress +
-                '}';
+        StringBuilder sb = new StringBuilder("Организация: " + name +
+                ", ID: " + id +
+                ", Координаты: " + coordinates +
+                ", Дата: " + DataParser.formatter.format(creationDate) +
+                ", Годовой оборот: " + annualTurnover +
+                ", Количество работников: " + employeesCount +
+                ", Тип: " + type +
+                ", Адрес: ");
+        if (officialAddress == null){
+            sb.append("Неизвестен");
+        } else sb.append(officialAddress);
+        return sb.toString();
     }
+
 
     public String toCsv(){
         char del = ',';
@@ -118,4 +121,6 @@ public class Organization {
         sb.append('\n');
         return sb.toString();
     }
+
+
 }

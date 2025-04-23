@@ -25,11 +25,9 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                '}';
+        return  "X: " + x +
+                ", Y: " + y +
+                ", Z: " + z;
     }
 
     public String toCsv() {
