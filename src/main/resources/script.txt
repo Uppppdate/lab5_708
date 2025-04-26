@@ -1,0 +1,7 @@
+phimoz
+phimsd
+help
+show
+execute_script C:\fucky\lab5_708\src\main\resources\script.txt
+execute_script C:\fucky\lab5_708\src\main\resources\script2.txt
+remove_by_id 93012

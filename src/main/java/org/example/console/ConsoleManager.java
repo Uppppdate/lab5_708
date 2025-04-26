@@ -2,14 +2,13 @@ package org.example.console;
 
 import org.example.commands.CommandException;
 import org.example.commands.Invoker;
+import org.example.files.DataErrorException;
 import org.example.files.DataParser;
 import org.example.files.FileErrorException;
 import org.example.files.PathManager;
 
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleManager {
     public void toDetermineDataPath(String[] args, InputStream inputStream) {
@@ -28,6 +27,8 @@ public class ConsoleManager {
                 break;
             } catch (FileErrorException e) {
                 System.out.println(e.getMessage());
+            } catch (DataErrorException e) {
+                System.out.println("Неправильно передан путь: " + e);
             }
         }
         DataParser.toParse();
@@ -35,7 +36,7 @@ public class ConsoleManager {
 
     public void toStart(String[] args, InputStream is) {
         Scanner scanner = new Scanner(is);
-        while (true) {
+        while (scanner.hasNext()) {
             String line;
             try {
                 line = scanner.nextLine();

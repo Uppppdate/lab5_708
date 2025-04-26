@@ -4,9 +4,7 @@ import org.example.data.*;
 import org.example.files.DataErrorException;
 import org.example.files.DataParser;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 public class CollectionManager {
     private static LinkedHashSet<Organization> orgSet;
@@ -55,5 +53,30 @@ public class CollectionManager {
         orgSet.add(org);
         IdManager.addId(org.getId());
         }
+    }
+
+    public static void removeOrganization(Long id) throws DataErrorException {
+        if(!IdManager.checkId(id)){
+            throw new DataErrorException("Указанного ID не существует");
+        }
+        IdManager.removeId(id);
+        Optional<Organization> organization = orgSet.stream().filter(org -> org.getId().equals(id)).findFirst();
+        organization.ifPresent(value -> orgSet.remove(value));
+    }
+
+    public static void removeOrganization(Organization organization) throws DataErrorException {
+        if(!orgSet.contains(organization)){
+            throw new DataErrorException("Указанная организация не содержится в коллекции");
+        }
+        Long id = organization.getId();
+        IdManager.removeId(id);
+        orgSet.remove(organization);
+    }
+
+    public static Organization getOrgById(Long id) throws DataErrorException{
+        if(!IdManager.checkId(id)){
+            throw new DataErrorException("Указанного ID не существует");
+        }
+        return orgSet.stream().filter(org -> org.getId().equals(id)).findFirst().get();
     }
 }

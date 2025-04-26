@@ -27,10 +27,19 @@ public class Validator {
         try {
             Long parsed_id = Long.valueOf(id);
             if (!(parsed_id > IdManager.MIN & parsed_id < IdManager.MAX & !IdManager.checkId(parsed_id))) {
-                throw new DataErrorException("Wrong id");
+                throw new DataErrorException("Неверное ID");
             }
         } catch (NumberFormatException e) {
-            throw new DataErrorException("Wrong id");
+            throw new DataErrorException("Неверное ID");
+        }
+        return true;
+    }
+
+    public static boolean checkLong(String longValue) throws DataErrorException {
+        try {
+            Long.valueOf(longValue);
+        } catch (NumberFormatException e) {
+            throw new DataErrorException("Данные в неправильном формате");
         }
         return true;
     }
@@ -66,9 +75,9 @@ public class Validator {
     }
 
     public static boolean checkDate(String date) throws DataErrorException {
-        try{
+        try {
             DataParser.formatter.parse(date);
-        }catch (ParseException e){
+        } catch (ParseException e) {
             throw new DataErrorException("Wrong data");
         }
         return true;
@@ -108,8 +117,8 @@ public class Validator {
 
     public static boolean checkStreet(String street) throws DataErrorException {
         try {
-            if(street!=null){
-            if (street.length() > 85) throw new DataErrorException("Wrong annual turnover");
+            if (street != null) {
+                if (street.length() > 85) throw new DataErrorException("Wrong annual turnover");
             }
         } catch (NullPointerException e) {
             throw new DataErrorException("Wrong annual turnover");
@@ -177,6 +186,12 @@ public class Validator {
         } catch (IndexOutOfBoundsException e) {
             throw new DataErrorException("Insufficient data");
         }
+    }
 
+    public static boolean checkArgs(String[] args) throws DataErrorException {
+        if (args.length < 2 || args[1] == null || args[1].isEmpty()) {
+            throw new DataErrorException("Аргументы не указаны или пустые");
+        }
+        return true;
     }
 }

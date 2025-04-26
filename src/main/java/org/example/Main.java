@@ -4,7 +4,6 @@ import org.example.collection.CollectionManager;
 import org.example.commands.Invoker;
 import org.example.console.ConsoleManager;
 import org.example.data.*;
-import org.example.files.DataWriter;
 
 public class Main {
     public static void main(String[] args) {

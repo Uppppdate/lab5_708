@@ -1,5 +1,5 @@
 package org.example.commands;
 
 public interface Command {
-    String execute(String[] args);
+    String execute(String[] args) throws CommandException;
 }

@@ -8,8 +8,13 @@ import java.nio.file.Paths;
 public class PathManager {
     public static Path CURRENT_DATA_PATH;
     private static final Path DEFAULT_DATA_PATH = Path.of("src/main/resources/data.csv");
-    public static File getFileFromPath(String path) throws InvalidPathException, FileErrorException {
-        Path filepath = Paths.get(path);
+    public static File getFileFromPath(String path) throws FileErrorException, DataErrorException {
+        Path filepath = null;
+        try {
+            filepath = Paths.get(path);
+        } catch (InvalidPathException e){
+            throw new DataErrorException(path);
+        }
         File file = filepath.toFile();
         if (!(file.canRead() & file.canWrite() & file.exists())) {
             throw new FileErrorException(path);

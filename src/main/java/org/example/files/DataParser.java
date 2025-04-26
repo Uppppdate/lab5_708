@@ -1,10 +1,12 @@
 package org.example.files;
 
 import org.example.collection.CollectionManager;
+import org.example.data.Organization;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Scanner;
 
 public class DataParser {
@@ -15,10 +17,10 @@ public class DataParser {
         File file = null;
         try {
             file = PathManager.getFileFromPath(PathManager.CURRENT_DATA_PATH.toString());
-        } catch (FileErrorException e){
+        } catch (FileErrorException | DataErrorException e){
             System.out.println(e.getMessage());
             PathManager.setCurrentDataPathAsDefault();
-            System.out.println("Path was switched to default");
+            System.out.println("Установлен путь по умолчанию");
         }
         Scanner scanner = null;
         try {
@@ -34,10 +36,19 @@ public class DataParser {
             try {
                 CollectionManager.addOrganizationFromData(data);
             } catch (DataErrorException e) {
-                System.out.println("Error in line: " + lineNumber + "\n\t" + e.getMessage());
+                System.out.println("Ошибка в строке: " + lineNumber + "\n\t" + e.getMessage());
             }
         }
-        System.out.println(lineNumber + " lines was parsed");
+        System.out.println(lineNumber + " строк было прочитано");
+        //проверяю наличие объектов с нулевым ID с помощью потоков
+        List<Organization> list = CollectionManager.getOrgSet().stream().filter(org -> org.getId()==0).toList();
+        //удаляю каждый найденный объект из коллекции
+        for (Organization org : list){
+            CollectionManager.getOrgSet().remove(org);
+        }
+        //перезаписываю файл без объектов с нулевым ID
+        DataWriter.toSave();
+        //закрываю поток сканера, считывавшего файл
         scanner.close();
 
     }
