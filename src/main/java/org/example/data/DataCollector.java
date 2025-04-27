@@ -2,10 +2,19 @@ package org.example.data;
 
 import org.example.files.DataErrorException;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * Класс, сборщик данных для команд с вводом по несколько строк.
+ */
 public class DataCollector {
+    /**
+     * Метод для сборки данных из скрипта
+     * @param sc Сканер для чтения файла с того, места, где была вызвана команда.
+     *           При отработке метода сканер продолжает чтение файла с места, где закончилась
+     *           составная команда.
+     * @return массив с собранными данными
+     */
     public static String[] collectDataFromScript(Scanner sc) {
         String[] data = new String[12];
         for (int i = 0; i < data.length; i++) {
@@ -15,7 +24,11 @@ public class DataCollector {
         }
         return data;
     }
-
+    /**
+     * Метод для сборки данных из консоли
+     * @param sc Сканер для чтения данных из консоли
+     * @return массив с собранными данными
+     */
     public static String[] collectDataFromConsole(Scanner sc) {
         //массив со всеми данными
         String[] data = new String[12];

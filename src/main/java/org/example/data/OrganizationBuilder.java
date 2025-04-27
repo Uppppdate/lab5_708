@@ -7,20 +7,42 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * Билдер для класса Organization
+ * @see Organization
+ */
 public class OrganizationBuilder {
     private Long id;
+    /**
+     * Значение id по умолчанию
+     */
     public static final Long ID_DEFAULT = 0L;
     private String name;
+    /**
+     * Значение name по умолчанию
+     */
     public static final String NAME_DEFAULT = "unknown";
     private Coordinates coordinates;
     private CoordinatesBuilder crb;
     private java.util.Date creationDate;
+    /**
+     * Значение creationDate по умолчанию
+     */
     public static final Date CREATION_DATE_DEFAULT = new Date(0);
     private float annualTurnover;
+    /**
+     * Значение annualTurnover по умолчанию
+     */
     public static final float ANNUAL_TURNOVER_DEFAULT = 1L;
     private Integer employeesCount;
+    /**
+     * Значение employeesCount по умолчанию
+     */
     public static final Integer EMPLOYEES_COUNT_DEFAULT = 1;
     private OrganizationType type;
+    /**
+     * Значение type по умолчанию
+     */
     public static final OrganizationType ORGANIZATION_TYPE_DEFAULT = OrganizationType.PUBLIC;
     private Address officialAddress;
 
@@ -30,6 +52,9 @@ public class OrganizationBuilder {
         setValuesAsDefault();
     }
 
+    /**
+     * Устанавливает значения по умолчанию
+     */
     private void setValuesAsDefault() {
         crb = new CoordinatesBuilder();
         arb = new AddressBuilder();
@@ -43,6 +68,11 @@ public class OrganizationBuilder {
         officialAddress = arb.build();
     }
 
+    /**
+     * Устанавливает id. В случае неправильного ввода устанавливает значения по умолчанию.
+     * @param id
+     * @return
+     */
     public OrganizationBuilder setId(String id) {
         try {
             Validator.checkId(id);
@@ -53,11 +83,11 @@ public class OrganizationBuilder {
         return this;
     }
 
-    public OrganizationBuilder generateId() {
-        id = IdManager.generateId();
-        return this;
-    }
-
+    /**
+     * Устанавливает name. В случае неправильного ввода устанавливает значения по умолчанию.
+     * @param name
+     * @return
+     */
     public OrganizationBuilder setName(String name) {
         try {
             Validator.checkName(name);
@@ -68,26 +98,31 @@ public class OrganizationBuilder {
         return this;
     }
 
-    public OrganizationBuilder setCoordinates(Coordinates coordinates) {
-        try {
-            Validator.isNull(coordinates);
-        } catch (NullPointerException e){
-            return this;
-        }
-        this.coordinates = coordinates;
-        return this;
-    }
-
+    /**
+     * @see CoordinatesBuilder#setX(String)
+     * @param x
+     * @return
+     */
     public OrganizationBuilder setCoordinatesX(String x) {
         crb.setX(x);
         return this;
     }
 
+    /**
+     * @see CoordinatesBuilder#setY(String)
+     * @param y
+     * @return
+     */
     public OrganizationBuilder setCoordinatesY(String y) {
         crb.setY(y);
         return this;
     }
 
+    /**
+     * Устанавливает creationDate. В случае неправильного ввода устанавливает значения по умолчанию.
+     * @param creationDate
+     * @return
+     */
     public OrganizationBuilder setCreationDate(String creationDate) {
         if(creationDate.equals("current")){
             this.creationDate = new Date();
@@ -106,11 +141,11 @@ public class OrganizationBuilder {
         return this;
     }
 
-    public OrganizationBuilder setCreationDate() {
-        this.creationDate = new Date();
-        return this;
-    }
-
+    /**
+     * Устанавливает annualTurnover. В случае неправильного ввода устанавливает значения по умолчанию.
+     * @param annualTurnover
+     * @return
+     */
     public OrganizationBuilder setAnnualTurnover(String annualTurnover) {
         try {
             Validator.checkAnnualTurnover(annualTurnover);
@@ -121,6 +156,11 @@ public class OrganizationBuilder {
         return this;
     }
 
+    /**
+     * Устанавливает employeesCount. В случае неправильного ввода устанавливает значения по умолчанию.
+     * @param employeesCount
+     * @return
+     */
     public OrganizationBuilder setEmployeesCount(String employeesCount) {
         try {
             Validator.checkEmployeesCount(employeesCount);
@@ -131,41 +171,63 @@ public class OrganizationBuilder {
         return this;
     }
 
-    public OrganizationBuilder setOfficialAddress(Address officialAddress) {
-        try {
-            Validator.isNull(officialAddress);
-        } catch (NullPointerException e){
-            return this;
-        }
-        this.officialAddress = officialAddress;
-        return this;
-    }
 
+    /**
+     * @see AddressBuilder#setStreet(String)
+     * @param street
+     * @return
+     */
     public OrganizationBuilder setAddressStreet(String street) {
         arb.setStreet(street);
         return this;
     }
 
+    /**
+     * @see AddressBuilder#setZipCode(String)
+     * @param zipCode
+     * @return
+     */
     public OrganizationBuilder setAddressZipCode(String zipCode) {
         arb.setZipCode(zipCode);
         return this;
     }
 
+
+    /**
+     * @see AddressBuilder#setLocationX(String)
+     * @param x
+     * @return
+     */
     public OrganizationBuilder setLocationX(String x) {
         arb.setLocationX(x);
         return this;
     }
 
+
+    /**
+     * @see AddressBuilder#setLocationY(String)
+     * @param y
+     * @return
+     */
     public OrganizationBuilder setLocationY(String y) {
         arb.setLocationY(y);
         return this;
     }
-
+    /**
+     * @see AddressBuilder#setLocationZ(String)
+     * @param z
+     * @return
+     */
     public OrganizationBuilder setLocationZ(String z) {
         arb.setLocationZ(z);
         return this;
     }
 
+    /**
+     * Устанавливает type. В случае неправильного ввода устанавливает значения по умолчанию.
+     * @param type
+     * @return
+     */
     public OrganizationBuilder setType(String type) {
         try {
             Validator.checkOrganizationType(type);
@@ -176,6 +238,10 @@ public class OrganizationBuilder {
         return this;
     }
 
+
+    /**
+     * @return собранный объект Organization
+     */
     public Organization build() {
         coordinates = crb.build();
         officialAddress = arb.build();
@@ -184,6 +250,11 @@ public class OrganizationBuilder {
         return org;
     }
 
+    /**
+     * Собирает объект Organization из не обязательно полных данных об объекте
+     * @param data данные для создания организации
+     * @return собранный объект Organization
+     */
     public static Organization buildWithData(String[] data) {
         String[] fullsize_data = Arrays.copyOf(data, 13);
         Arrays.fill(fullsize_data, data.length, fullsize_data.length, "0");

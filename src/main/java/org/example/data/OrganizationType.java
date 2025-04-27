@@ -1,5 +1,8 @@
 package org.example.data;
 
+/**
+ * Перечисление типов организации
+ */
 public enum OrganizationType {
     COMMERCIAL,
     PUBLIC,

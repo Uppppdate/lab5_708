@@ -1,8 +1,14 @@
 package org.example.data;
 
+/**
+ * Класс Address
+ */
 public class Address {
     private String street;
     private String zipCode;
+    /**
+     * Переменная классa Location
+     */
     private Location town;
 
     public Address(String street, String zipCode, Location town) {
@@ -43,6 +49,9 @@ public class Address {
         return sb.toString();
     }
 
+    /**
+     * @return строка для записи в csv файл
+     */
     public String toCsv(){
         char del = ',';
         StringBuilder sb = new StringBuilder();
@@ -56,6 +65,9 @@ public class Address {
         return sb.toString();
     }
 
+    /**
+     * @return строка записи в csv по умолчанию
+     */
     public static String toCsvDefault(){
         char del = ',';
         StringBuilder sb = new StringBuilder();

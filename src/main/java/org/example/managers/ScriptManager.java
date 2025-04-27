@@ -15,13 +15,25 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Stack;
 
+/**
+ * Менеджер для работы со скриптом
+ */
 public class ScriptManager {
+    /**
+     * Стэк используемых скриптов
+     */
     private static Stack<File> scriptsStack = new Stack<>();
 
     public static Stack<File> getScriptsStack() {
         return scriptsStack;
     }
 
+    /**
+     * Аналог метода toStart в console manager'е, только для работы в скрипте
+     * @see ConsoleManager#toStart(String[], InputStream) 
+     * @param args 
+     * @param is
+     */
     public void toStart(String[] args, FileInputStream is) {
         Scanner scanner = new Scanner(is);
         while (scanner.hasNext()) {

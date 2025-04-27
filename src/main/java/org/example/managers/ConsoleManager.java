@@ -13,7 +13,15 @@ import org.example.files.PathManager;
 import java.io.InputStream;
 import java.util.*;
 
+/**
+ * Менеджер для работы с консолью
+ */
 public class ConsoleManager {
+    /**
+     * Определяет путь к файлу с данными
+     * @param args
+     * @param inputStream
+     */
     public void toDetermineDataPath(String[] args, InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
         System.out.println("Enter path to .csv file");
@@ -37,6 +45,11 @@ public class ConsoleManager {
         DataParser.toParse();
     }
 
+    /**
+     * Считывает и выполняет команду
+     * @param args
+     * @param is
+     */
     public void toStart(String[] args, InputStream is) {
         Scanner scanner = new Scanner(is);
         while (scanner.hasNext()) {

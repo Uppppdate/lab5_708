@@ -4,15 +4,18 @@ import org.example.files.DataParser;
 
 import java.util.Date;
 
+/**
+ * Класс Organization описывает объект, хранящийся в коллекции
+ */
 public class Organization implements Comparable<Organization> {
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private float annualTurnover; //Значение поля должно быть больше 0
-    private Integer employeesCount; //Поле не может быть null, Значение поля должно быть больше 0
-    private OrganizationType type; //Поле не может быть null
-    private Address officialAddress; //Поле может быть null
+    private Long id;
+    private String name;
+    private Coordinates coordinates;
+    private java.util.Date creationDate;
+    private float annualTurnover;
+    private Integer employeesCount;
+    private OrganizationType type;
+    private Address officialAddress;
 
     public Long getId() {
         return id;
@@ -106,6 +109,9 @@ public class Organization implements Comparable<Organization> {
     }
 
 
+    /**
+     * @return строковое представление для сохранения в файл csv
+     */
     public String toCsv(){
         char del = ',';
         StringBuilder sb = new StringBuilder();
@@ -122,6 +128,12 @@ public class Organization implements Comparable<Organization> {
         return sb.toString();
     }
 
+    /**
+     * Сравнивает два объекта с определённой логикой,
+     * позволяет сортировать в прямом и обратном порядке организации
+     * @param o объект для сравнения
+     * @return результат сравнения
+     */
     @Override
     public int compareTo(Organization o) {
         // 1. Сравниваем по масштабу (оборот × сотрудники)

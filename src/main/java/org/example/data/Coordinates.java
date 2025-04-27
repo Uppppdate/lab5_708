@@ -1,5 +1,8 @@
 package org.example.data;
 
+/**
+ * Класс координат
+ */
 public class Coordinates {
     private long x;
     private double y;
@@ -23,6 +26,9 @@ public class Coordinates {
                 ", Y: " + y;
     }
 
+    /**
+     * @return строка для записи в csv
+     */
     public String toCsv() {
         char del = ',';
         StringBuilder sb = new StringBuilder();

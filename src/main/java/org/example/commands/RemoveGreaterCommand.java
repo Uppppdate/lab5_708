@@ -7,13 +7,20 @@ import org.example.files.DataErrorException;
 
 import java.util.List;
 
+/**
+ * Команда remove_greater id удаляет из коллекции элементы, превышающие элемент с заданным ID
+ */
 public class RemoveGreaterCommand extends BaseCommand {
+    /**
+     * Конструктор
+     */
     public RemoveGreaterCommand() {
         super("remove_greater", "удалить из коллекции все элементы, превышающие заданный", new String[]{"id"});
     }
 
     @Override
     public String execute(String[] args) throws CommandException {
+        //объявляю организацию
         Organization org = null;
         try {
             //проверяю на наличие аргументов для команды

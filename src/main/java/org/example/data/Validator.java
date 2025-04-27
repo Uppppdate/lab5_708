@@ -7,8 +7,17 @@ import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.util.Date;
 
+/**
+ * Класс для проверки значение
+ */
 public class Validator {
 
+    /**
+     * Проверяет объект на null
+     * @param obj объект для проверки
+     * @return
+     * @throws NullPointerException пробрасывается если объект null
+     */
     public static boolean isNull(Object obj) throws NullPointerException {
         if (obj == null) {
             throw new NullPointerException();
@@ -16,6 +25,11 @@ public class Validator {
         return false;
     }
 
+    /**
+     * Проверяет строку на null, незаполненность
+     * @param input
+     * @return
+     */
     public static boolean isNull(String input) {
         isNull((Object) input);
         if (input.isEmpty() || input.equals("null")) {
@@ -23,10 +37,16 @@ public class Validator {
         } else return true;
     }
 
+    /**
+     * Проверяет id на нахождение в нужном диапазоне, а также на его ОТСУТСТВИЕ в коллекции
+     * @param id
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkId(String id) throws DataErrorException {
         try {
             Long parsed_id = Long.valueOf(id);
-            //если значение не превышает MAX, не меньше MIN и НЕ СОДЕРЖИТСЯ в коллекции
+            //Проверяет если значение не превышает MAX, не меньше MIN и НЕ СОДЕРЖИТСЯ в коллекции, то все хорошо
             if (!(parsed_id > IdManager.MIN & parsed_id < IdManager.MAX & !IdManager.checkId(parsed_id))) {
                 throw new DataErrorException("Неверное ID");
             }
@@ -36,6 +56,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет строку на тип Long
+     * @param longValue
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkLong(String longValue) throws DataErrorException {
         try {
             Long.valueOf(longValue);
@@ -45,6 +71,13 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет name
+     * @see Organization#name
+     * @param name
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkName(String name) throws DataErrorException {
         try {
             isNull(name);
@@ -54,6 +87,13 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет X из класса Coordinates
+     * @see Coordinates
+     * @param x
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkCoordinatesX(String x) throws DataErrorException {
         try {
             isNull(x);
@@ -64,6 +104,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет y из класса Coordinates
+     * @param y
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkCoordinatesY(String y) throws DataErrorException {
         try {
             isNull(y);
@@ -75,6 +121,13 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет дату
+     * @see Organization#creationDate
+     * @param date
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkDate(String date) throws DataErrorException {
         if (date.equals("current")){
             return true;
@@ -87,6 +140,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет annualTurnover
+     * @param annualTurnover
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkAnnualTurnover(String annualTurnover) throws DataErrorException {
         try {
             isNull(annualTurnover);
@@ -98,6 +157,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет employeesCount
+     * @param employeesCount
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkEmployeesCount(String employeesCount) throws DataErrorException {
         try {
             isNull(employeesCount);
@@ -109,6 +174,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет organizationType
+     * @param organizationType
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkOrganizationType(String organizationType) throws DataErrorException {
         try {
             isNull(organizationType);
@@ -119,6 +190,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет street
+     * @param street
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkStreet(String street) throws DataErrorException {
         try {
             if (street != null) {
@@ -130,6 +207,12 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет zipCode
+     * @param zipCode
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkZipCode(String zipCode) throws DataErrorException {
         try {
             isNull(zipCode);
@@ -139,6 +222,13 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет X из класса Location
+     * @see Location
+     * @param x
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkLocationX(String x) throws DataErrorException {
         try {
             isNull(x);
@@ -149,6 +239,13 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет Y из класса Location
+     * @see Location
+     * @param y
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkLocationY(String y) throws DataErrorException {
         try {
             isNull(y);
@@ -159,6 +256,13 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Проверяет Z из класса Location
+     * @see Location
+     * @param z
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkLocationZ(String z) throws DataErrorException {
         try {
             isNull(z);
@@ -170,6 +274,11 @@ public class Validator {
     }
 
 
+    /**
+     * Проверяет полные данные для объекта
+     * @param data
+     * @throws DataErrorException
+     */
     public static void checkData(String[] data) throws DataErrorException {
         try {
             checkId(data[0]);
@@ -192,6 +301,12 @@ public class Validator {
         }
     }
 
+    /**
+     * Проверяет наличие аргументов в переданной строке команды, разбитой на токены
+     * @param args
+     * @return
+     * @throws DataErrorException
+     */
     public static boolean checkArgs(String[] args) throws DataErrorException {
         if (args.length < 2 || args[1] == null || args[1].isEmpty()) {
             throw new DataErrorException("Аргументы не указаны или пустые");

@@ -5,12 +5,34 @@ import org.example.files.DataErrorException;
 
 import java.util.*;
 
+/**
+ * Класс Invoker хранит в себе все команды, историю вызова команд,
+ * вызывает метод execute у нужной команды и передаёт в неё аргументы.
+ *
+ */
 public class Invoker {
+    /**
+     * Хэш мап со всеми командами, где ключ - имя команды, значение - сама команда
+     */
     private static HashMap<String, BaseCommand> commands = new HashMap<>();
+    /**
+     * Лист с именами команд с аргументами, необходима для проверки наличия аргументов
+     */
     private static List<String> compoundCommands = new ArrayList<>();
+
+    /**
+     * Deque, хранящая последние 15 команд, которые были использованы
+     */
     private static Deque<BaseCommand> history = new ArrayDeque<>();
+
+    /**
+     * Константа, определяющая размерность истории команд
+     */
     private static final Integer HISTORY_MAX = 15;
 
+    /**
+     * Конструктор с объявлением всех команд и помещением их в hashmap
+     */
     public Invoker() {
         //Добавляю команды в hashMap для дальнейшего вызова по имени
         commands.put("info", new InfoCommand());
@@ -38,13 +60,23 @@ public class Invoker {
         compoundCommands.add("filter_contains_name");
     }
 
+
+    /**
+     * @param tokens токены, на которые была разбита строка с консоли, содержащая команду (и аргументы)
+     * @throws CommandException пробрасывается с разным message, при разных ошибках внутри команды
+     */
     public static void execute(String[] tokens) throws CommandException {
         try {
+            //Нахожу команду в списке команд
             BaseCommand command = commands.get(tokens[0]);
+            //Проверяю на наличие команды в списке составных команд
             if (compoundCommands.contains(command.getName())) {
+                //Проверяю наличие аргументов
                 Validator.checkArgs(tokens);
             }
+            //Выполняю команду
             command.execute(tokens);
+            //Добавляю команду в историю выполненных команд
             addCommandInHistory(command);
         } catch (NullPointerException e) {
             throw new CommandException(tokens[0]);
@@ -55,7 +87,12 @@ public class Invoker {
         }
     }
 
+    /**
+     * Добавляет команду в историю
+     * @param command Команда для добавления в историю
+     */
     private static void addCommandInHistory(BaseCommand command) {
+        //Учитывает максимальный размер истории команд
         if (history.size() < HISTORY_MAX) {
             history.addLast(command);
         } else {

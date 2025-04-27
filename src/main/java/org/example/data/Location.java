@@ -1,5 +1,8 @@
 package org.example.data;
 
+/**
+ * Класс Location
+ */
 public class Location {
     private double x;
     private double y;
@@ -30,6 +33,9 @@ public class Location {
                 ", Z: " + z;
     }
 
+    /**
+     * @return строковое представление для записи в csv файл
+     */
     public String toCsv() {
         char del = ',';
         StringBuilder sb = new StringBuilder();
@@ -38,6 +44,9 @@ public class Location {
         return sb.toString();
     }
 
+    /**
+     * @return строковое представление для записи в csv по умолчанию
+     */
     public static String toCsvDefault(){
         char del = ',';
         StringBuilder sb = new StringBuilder();

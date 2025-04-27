@@ -2,11 +2,21 @@ package org.example.commands;
 
 import org.example.managers.CollectionManager;
 
+/**
+ * Команда AverageOfEmployeesCountCommand
+ */
 public class AverageOfEmployeesCountCommand extends BaseCommand{
 
+    /**
+     * Конструктор
+     */
     public AverageOfEmployeesCountCommand() {
         super("average_of_employees_count", "вывести среднее значение поля employeesCount для всех элементов коллекции", new String[]{});
     }
+
+    /**
+     * Переменная для работы лямбда выражения в методе execute
+     */
     private static Integer amount = 0;
     @Override
     public String execute(String[] args) {
