@@ -1,6 +1,6 @@
 package org.example.files;
 
-import org.example.collection.CollectionManager;
+import org.example.managers.CollectionManager;
 import org.example.data.Organization;
 
 import java.io.File;

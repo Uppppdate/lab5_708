@@ -1,8 +1,9 @@
-package org.example.collection;
+package org.example.managers;
 
 import org.example.data.*;
 import org.example.files.DataErrorException;
 import org.example.files.DataParser;
+import org.example.files.DataWriter;
 
 import java.util.*;
 
@@ -28,6 +29,10 @@ public class CollectionManager {
         orgSet.clear();
     }
 
+    public static Organization getMax(){
+        Optional<Organization> opt = orgSet.stream().max(Comparator.naturalOrder());
+        return opt.orElse(null);
+    }
     public static void addOrganizationFromData(String[] data) throws DataErrorException{
         try {
             Validator.checkData(data);
@@ -78,5 +83,16 @@ public class CollectionManager {
             throw new DataErrorException("Указанного ID не существует");
         }
         return orgSet.stream().filter(org -> org.getId().equals(id)).findFirst().get();
+    }
+
+    public static void cleanUpCollection(){
+        //проверяю наличие объектов с нулевым ID с помощью потоков
+        List<Organization> list = CollectionManager.getOrgSet().stream().filter(org -> org.getId()==0).toList();
+        //удаляю каждый найденный объект из коллекции
+        for (Organization org : list){
+            CollectionManager.getOrgSet().remove(org);
+        }
+        //перезаписываю файл без объектов с нулевым ID
+        DataWriter.toSave();
     }
 }

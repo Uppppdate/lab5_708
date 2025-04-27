@@ -1,7 +1,28 @@
 phimoz
-phimsd
-help
+add_if_max
+SKIBIDI
+213
+115
+current
+105624
+250769
+GOVERNMENT
+ulista tualetov
+123
+242
+153
+35
 show
-execute_script C:\fucky\lab5_708\src\main\resources\script.txt
-execute_script C:\fucky\lab5_708\src\main\resources\script2.txt
-remove_by_id 93012
+add_if_max
+BEBRA
+13
+23
+current
+105
+2507
+TRUST
+TOILETNAYA
+123804
+24
+15
+01235

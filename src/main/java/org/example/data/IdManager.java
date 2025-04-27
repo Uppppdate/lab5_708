@@ -20,6 +20,16 @@ public class IdManager {
         idList.add(id);
         return id;
     }
+
+    public static Long generateIdWithoutAdding() {
+        SecureRandom secureRandom = new SecureRandom();
+        Long id = secureRandom.nextLong(MAX);
+        while (idList.contains(id)) {
+            id = secureRandom.nextLong(MAX);
+        }
+        return id;
+    }
+
     public static boolean addId(Long id){
         if (!idList.contains(id)) {
             idList.add(id);

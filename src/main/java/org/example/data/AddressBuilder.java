@@ -4,9 +4,9 @@ import org.example.files.DataErrorException;
 
 public class AddressBuilder {
     private String street;
-    public static final String STREET_DEFAULT = " ";
+    public static final String STREET_DEFAULT = "0";
     private String zipCode;
-    public static final String ZIP_CODE_DEFAULT = " ";
+    public static final String ZIP_CODE_DEFAULT = "0";
     private Location town;
     private LocationBuilder lcb;
 

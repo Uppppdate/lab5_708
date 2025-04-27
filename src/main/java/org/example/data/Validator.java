@@ -26,6 +26,7 @@ public class Validator {
     public static boolean checkId(String id) throws DataErrorException {
         try {
             Long parsed_id = Long.valueOf(id);
+            //если значение не превышает MAX, не меньше MIN и НЕ СОДЕРЖИТСЯ в коллекции
             if (!(parsed_id > IdManager.MIN & parsed_id < IdManager.MAX & !IdManager.checkId(parsed_id))) {
                 throw new DataErrorException("Неверное ID");
             }
@@ -75,6 +76,9 @@ public class Validator {
     }
 
     public static boolean checkDate(String date) throws DataErrorException {
+        if (date.equals("current")){
+            return true;
+        }
         try {
             DataParser.formatter.parse(date);
         } catch (ParseException e) {
@@ -108,7 +112,7 @@ public class Validator {
     public static boolean checkOrganizationType(String organizationType) throws DataErrorException {
         try {
             isNull(organizationType);
-            OrganizationType type = OrganizationType.valueOf(organizationType);
+            OrganizationType type = OrganizationType.valueOf(organizationType.toUpperCase());
         } catch (IllegalArgumentException | NullPointerException e) {
             throw new DataErrorException("Wrong organization type");
         }
@@ -118,10 +122,10 @@ public class Validator {
     public static boolean checkStreet(String street) throws DataErrorException {
         try {
             if (street != null) {
-                if (street.length() > 85) throw new DataErrorException("Wrong annual turnover");
+                if (street.length() > 85) throw new DataErrorException("Неверная улица");
             }
         } catch (NullPointerException e) {
-            throw new DataErrorException("Wrong annual turnover");
+            throw new DataErrorException("Неверная улица");
         }
         return true;
     }
@@ -130,7 +134,7 @@ public class Validator {
         try {
             isNull(zipCode);
         } catch (NullPointerException e) {
-            throw new DataErrorException("Wrong zip code");
+            throw new DataErrorException("Неверный индекс");
         }
         return true;
     }

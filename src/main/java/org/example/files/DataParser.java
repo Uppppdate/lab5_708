@@ -1,6 +1,6 @@
 package org.example.files;
 
-import org.example.collection.CollectionManager;
+import org.example.managers.CollectionManager;
 import org.example.data.Organization;
 
 import java.io.File;
@@ -40,14 +40,8 @@ public class DataParser {
             }
         }
         System.out.println(lineNumber + " строк было прочитано");
-        //проверяю наличие объектов с нулевым ID с помощью потоков
-        List<Organization> list = CollectionManager.getOrgSet().stream().filter(org -> org.getId()==0).toList();
-        //удаляю каждый найденный объект из коллекции
-        for (Organization org : list){
-            CollectionManager.getOrgSet().remove(org);
-        }
-        //перезаписываю файл без объектов с нулевым ID
-        DataWriter.toSave();
+        //очищаю коллекцию от объектов с ID 0
+        CollectionManager.cleanUpCollection();
         //закрываю поток сканера, считывавшего файл
         scanner.close();
 

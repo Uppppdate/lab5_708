@@ -124,6 +124,19 @@ public class Organization implements Comparable<Organization> {
 
     @Override
     public int compareTo(Organization o) {
-        return Long.compare(this.id, o.getId());
+        // 1. Сравниваем по масштабу (оборот × сотрудники)
+        double thisScale = this.annualTurnover * this.employeesCount;
+        double otherScale = o.annualTurnover * o.employeesCount;
+        int scaleComparison = Double.compare(thisScale, otherScale);
+        if (scaleComparison != 0) return scaleComparison;
+
+        // 2. При равном масштабе сравниваем по эффективности (оборот / сотрудник)
+        double thisEfficiency = this.annualTurnover / this.employeesCount;
+        double otherEfficiency = o.annualTurnover / o.employeesCount;
+        int efficiencyComparison = Double.compare(thisEfficiency, otherEfficiency);
+        if (efficiencyComparison != 0) return efficiencyComparison;
+
+        // 3. Если всё равно одинаково — сравниваем по ID (уникальный параметр)
+        return Long.compare(this.id, o.id);
     }
 }

@@ -26,6 +26,9 @@ public class Invoker {
         commands.put("remove_by_id", new RemoveByIdCommand());
         commands.put("filter_contains_name", new FilterContainsNameCommand());
         commands.put("remove_greater", new RemoveGreaterCommand());
+        commands.put("add", new AddCommand());
+        commands.put("update", new UpdateCommand());
+        commands.put("add_if_max", new AddIfMaxCommand());
 
         //Добавляю имена команд с аргументами в compoundCommands
         compoundCommands.add("execute_script");
@@ -47,6 +50,8 @@ public class Invoker {
             throw new CommandException(tokens[0]);
         } catch (DataErrorException e){
             throw new CommandException(e.getMessage());
+        } catch (IndexOutOfBoundsException e){
+            throw new CommandException(" ");
         }
     }
 

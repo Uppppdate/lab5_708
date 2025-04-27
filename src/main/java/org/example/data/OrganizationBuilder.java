@@ -89,6 +89,10 @@ public class OrganizationBuilder {
     }
 
     public OrganizationBuilder setCreationDate(String creationDate) {
+        if(creationDate.equals("current")){
+            this.creationDate = new Date();
+            return this;
+        }
         try {
             Validator.checkDate(creationDate);
         } catch (DataErrorException e){
@@ -129,7 +133,7 @@ public class OrganizationBuilder {
 
     public OrganizationBuilder setOfficialAddress(Address officialAddress) {
         try {
-            Validator.isNull(name);
+            Validator.isNull(officialAddress);
         } catch (NullPointerException e){
             return this;
         }
@@ -164,11 +168,11 @@ public class OrganizationBuilder {
 
     public OrganizationBuilder setType(String type) {
         try {
-            Validator.checkOrganizationType(name);
+            Validator.checkOrganizationType(type);
         } catch (DataErrorException e){
             return this;
         }
-        this.type = OrganizationType.valueOf(type);
+        this.type = OrganizationType.valueOf(type.toUpperCase());
         return this;
     }
 
@@ -177,6 +181,28 @@ public class OrganizationBuilder {
         officialAddress = arb.build();
         Organization org = new Organization(id, name, coordinates, creationDate, annualTurnover, employeesCount, type, officialAddress);
         setValuesAsDefault();
+        return org;
+    }
+
+    public static Organization buildWithData(String[] data) {
+        String[] fullsize_data = Arrays.copyOf(data, 13);
+        Arrays.fill(fullsize_data, data.length, fullsize_data.length, "0");
+        OrganizationBuilder orb = new OrganizationBuilder();
+        Organization org = orb
+                .setId(fullsize_data[0])
+                .setName(fullsize_data[1])
+                .setCoordinatesX(fullsize_data[2])
+                .setCoordinatesY(fullsize_data[3])
+                .setCreationDate(fullsize_data[4])
+                .setAnnualTurnover(fullsize_data[5])
+                .setEmployeesCount(fullsize_data[6])
+                .setType(fullsize_data[7])
+                .setAddressStreet(fullsize_data[8])
+                .setAddressZipCode(fullsize_data[9])
+                .setLocationX(fullsize_data[10])
+                .setLocationY(fullsize_data[11])
+                .setLocationZ(fullsize_data[12])
+                .build();
         return org;
     }
 }

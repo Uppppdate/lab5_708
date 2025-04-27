@@ -1,6 +1,6 @@
 package org.example.commands;
 
-import org.example.collection.CollectionManager;
+import org.example.managers.CollectionManager;
 
 public class AverageOfEmployeesCountCommand extends BaseCommand{
 

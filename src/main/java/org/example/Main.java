@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.collection.CollectionManager;
+import org.example.managers.CollectionManager;
 import org.example.commands.Invoker;
-import org.example.console.ConsoleManager;
+import org.example.managers.ConsoleManager;
 import org.example.data.*;
 
 public class Main {
