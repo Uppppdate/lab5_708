@@ -4,6 +4,7 @@ import org.example.files.DataErrorException;
 
 /**
  * Билдер для класса Location
+ *
  * @see Location
  */
 public class LocationBuilder {
@@ -30,7 +31,7 @@ public class LocationBuilder {
     /**
      * Устанавливает значения по умолчанию
      */
-    private void setValuesAsDefault(){
+    private void setValuesAsDefault() {
         x = X_DEFAULT;
         y = Y_DEFAULT;
         z = Z_DEFAULT;
@@ -38,13 +39,14 @@ public class LocationBuilder {
 
     /**
      * Устанавливает значение переменной x, при неправильном вводе устанавливает значение по умолчанию
+     *
      * @param x
      * @return
      */
-    public LocationBuilder setX(String x){
+    public LocationBuilder setX(String x) {
         try {
             Validator.checkLocationX(x);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             return this;
         }
         this.x = Double.parseDouble(x);
@@ -53,13 +55,14 @@ public class LocationBuilder {
 
     /**
      * Устанавливает значение переменной y, при неправильном вводе устанавливает значение по умолчанию
+     *
      * @param y
      * @return
      */
-    public LocationBuilder setY(String y){
+    public LocationBuilder setY(String y) {
         try {
             Validator.checkLocationY(y);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             return this;
         }
         this.y = Double.parseDouble(y);
@@ -68,13 +71,14 @@ public class LocationBuilder {
 
     /**
      * Устанавливает значение переменной z, при неправильном вводе устанавливает значение по умолчанию
+     *
      * @param z
      * @return
      */
-    public LocationBuilder setZ(String z){
+    public LocationBuilder setZ(String z) {
         try {
             Validator.checkLocationZ(z);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             return this;
         }
         this.z = Long.parseLong(z);
@@ -84,11 +88,11 @@ public class LocationBuilder {
     /**
      * @return Собранный объект Location или null, если все значения по умолчанию
      */
-    public Location build(){
+    public Location build() {
         if (x == X_DEFAULT && y == Y_DEFAULT && z.equals(Z_DEFAULT)) {
             return null;
         }
-        Location location = new Location(x,y,z);
+        Location location = new Location(x, y, z);
         setValuesAsDefault();
         return location;
     }

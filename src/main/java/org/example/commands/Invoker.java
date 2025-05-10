@@ -8,7 +8,6 @@ import java.util.*;
 /**
  * Класс Invoker хранит в себе все команды, историю вызова команд,
  * вызывает метод execute у нужной команды и передаёт в неё аргументы.
- *
  */
 public class Invoker {
     /**
@@ -80,15 +79,16 @@ public class Invoker {
             addCommandInHistory(command);
         } catch (NullPointerException e) {
             throw new CommandException(tokens[0]);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             throw new CommandException(e.getMessage());
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new CommandException(" ");
         }
     }
 
     /**
      * Добавляет команду в историю
+     *
      * @param command Команда для добавления в историю
      */
     private static void addCommandInHistory(BaseCommand command) {

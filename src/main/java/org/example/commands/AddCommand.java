@@ -7,7 +7,7 @@ import org.example.files.DataErrorException;
 /**
  * Команда add
  */
-public class AddCommand extends BaseCommand{
+public class AddCommand extends BaseCommand {
 
     /**
      * Конструктор
@@ -18,11 +18,12 @@ public class AddCommand extends BaseCommand{
 
     /**
      * Метод, выполняющий команду add
+     *
      * @param args массив с данными для создания организации без ID
      * @return null
      * @throws CommandException если есть ошибка в данных,
-     * но всё равно добавляет объект со значениями по умолчанию для
-     * неправильных данных
+     *                          но всё равно добавляет объект со значениями по умолчанию для
+     *                          неправильных данных
      */
     @Override
     public String execute(String[] args) throws CommandException {
@@ -35,7 +36,7 @@ public class AddCommand extends BaseCommand{
             System.arraycopy(args, 0, data, 1, args.length);
             //Добавляю организацию
             CollectionManager.addOrganizationFromData(data);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             throw new CommandException(e.getMessage());
         }
         return null;

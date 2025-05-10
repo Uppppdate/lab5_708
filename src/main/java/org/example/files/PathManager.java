@@ -20,6 +20,7 @@ public class PathManager {
 
     /**
      * Метод, возвращающий файл по данному пути, если он существует и доступен к использованию
+     *
      * @param path путь
      * @return файл по переданному пути
      * @throws FileErrorException При невозможности прочитать файл, записать в файл, а также если файл не существует
@@ -29,7 +30,7 @@ public class PathManager {
         Path filepath = null;
         try {
             filepath = Paths.get(path);
-        } catch (InvalidPathException e){
+        } catch (InvalidPathException e) {
             throw new DataErrorException(path);
         }
         File file = filepath.toFile();
@@ -41,6 +42,7 @@ public class PathManager {
 
     /**
      * Устанавливает текущий путь до файла с данными при адекватном переданном пути
+     *
      * @param path
      * @throws FileErrorException
      */
@@ -48,7 +50,7 @@ public class PathManager {
         Path path1;
         try {
             path1 = Paths.get(path);
-        }catch (InvalidPathException e){
+        } catch (InvalidPathException e) {
             throw new FileErrorException(path);
         }
         CURRENT_DATA_PATH = path1;
@@ -57,7 +59,7 @@ public class PathManager {
     /**
      * Устанавливает значение пути по умолчанию
      */
-    public static void setCurrentDataPathAsDefault(){
+    public static void setCurrentDataPathAsDefault() {
         CURRENT_DATA_PATH = DEFAULT_DATA_PATH;
     }
 }

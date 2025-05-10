@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Команда help
  */
-public class HelpCommand extends BaseCommand{
+public class HelpCommand extends BaseCommand {
     /**
      * Конструктор
      */
@@ -17,13 +17,14 @@ public class HelpCommand extends BaseCommand{
 
     /**
      * Метод, реализующий команду
+     *
      * @param args
      * @return
      */
     @Override
     public String execute(String[] args) {
         //Получаю энтри каждой команды из списка команд
-        for(Map.Entry<String, BaseCommand> entry:  Invoker.getCommands().entrySet()){
+        for (Map.Entry<String, BaseCommand> entry : Invoker.getCommands().entrySet()) {
             //Получаю из энтри значение конкретной команды и вывожу помощь по ней в консоль
             System.out.println(entry.getValue().getHelp());
         }

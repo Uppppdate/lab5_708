@@ -27,7 +27,7 @@ public class DataParser {
         try {
             //получаю файл по текущему пути к файлу
             file = PathManager.getFileFromPath(PathManager.CURRENT_DATA_PATH.toString());
-        } catch (FileErrorException | DataErrorException e){
+        } catch (FileErrorException | DataErrorException e) {
             System.out.println(e.getMessage());
             //если не получается, то устанавливаю путь по умолчанию
             PathManager.setCurrentDataPathAsDefault();

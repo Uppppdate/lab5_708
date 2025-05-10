@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Команда filter_contains_name
  */
-public class FilterContainsNameCommand extends BaseCommand{
+public class FilterContainsNameCommand extends BaseCommand {
     /**
      * Конструктор
      */
@@ -20,6 +20,7 @@ public class FilterContainsNameCommand extends BaseCommand{
 
     /**
      * Метод, реализующий команду
+     *
      * @param args
      * @return
      * @throws CommandException

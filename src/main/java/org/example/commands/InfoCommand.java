@@ -7,7 +7,7 @@ import org.example.files.DataParser;
  * Команда info
  * Выводит базовую информацию о коллекции в консоль
  */
-public class InfoCommand extends BaseCommand{
+public class InfoCommand extends BaseCommand {
     /**
      * Конструктор
      */
@@ -17,6 +17,7 @@ public class InfoCommand extends BaseCommand{
 
     /**
      * Метод, реализующий команду
+     *
      * @param args
      * @return
      */

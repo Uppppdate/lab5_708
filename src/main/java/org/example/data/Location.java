@@ -28,7 +28,7 @@ public class Location {
 
     @Override
     public String toString() {
-        return  "X: " + x +
+        return "X: " + x +
                 ", Y: " + y +
                 ", Z: " + z;
     }
@@ -47,7 +47,7 @@ public class Location {
     /**
      * @return строковое представление для записи в csv по умолчанию
      */
-    public static String toCsvDefault(){
+    public static String toCsvDefault() {
         char del = ',';
         StringBuilder sb = new StringBuilder();
         sb

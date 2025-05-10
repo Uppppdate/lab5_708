@@ -42,6 +42,7 @@ public class AddressBuilder {
 
     /**
      * Устанавливает значение переменной street, при неправильном вводе устанавливает значения по умолчанию
+     *
      * @param street
      * @return
      */
@@ -57,6 +58,7 @@ public class AddressBuilder {
 
     /**
      * Устанавливает значение переменной zipCode, при неправильном вводе устанавливает значения по умолчанию
+     *
      * @param zipCode
      * @return
      */
@@ -71,27 +73,29 @@ public class AddressBuilder {
     }
 
     /**
-     * @see LocationBuilder#setX(String)
      * @param x
      * @return
+     * @see LocationBuilder#setX(String)
      */
     public AddressBuilder setLocationX(String x) {
         lcb.setX(x);
         return this;
     }
+
     /**
-     * @see LocationBuilder#setY(String)
      * @param y
      * @return
+     * @see LocationBuilder#setY(String)
      */
     public AddressBuilder setLocationY(String y) {
         lcb.setY(y);
         return this;
     }
+
     /**
-     * @see LocationBuilder#setZ(String)
      * @param z
      * @return
+     * @see LocationBuilder#setZ(String)
      */
     public AddressBuilder setLocationZ(String z) {
         lcb.setZ(z);
@@ -100,13 +104,14 @@ public class AddressBuilder {
 
     /**
      * Собирает объект Address
+     *
      * @return Собранный объект типа Address или null, если все значения по умолчанию
      */
     public Address build() {
         //Собираем локацию через LocationBuilder
         Location location = lcb.build();
         //Проверяем на дефолтность значений и возвращаем null, если ничего не известно
-        if (street.equals(STREET_DEFAULT) && zipCode.equals(ZIP_CODE_DEFAULT) && location==null) {
+        if (street.equals(STREET_DEFAULT) && zipCode.equals(ZIP_CODE_DEFAULT) && location == null) {
             return null;
         }
         Address address = new Address(street, zipCode, location);

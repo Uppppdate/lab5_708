@@ -4,6 +4,7 @@ import org.example.files.DataErrorException;
 
 /**
  * Билдер для класса координат
+ *
  * @see Coordinates
  */
 public class CoordinatesBuilder {
@@ -17,6 +18,7 @@ public class CoordinatesBuilder {
      * Значение переменной y по умолчанию
      */
     public static final long Y_DEFAULT = 0;
+
     public CoordinatesBuilder() {
         setValuesAsDefault();
     }
@@ -31,27 +33,30 @@ public class CoordinatesBuilder {
 
     /**
      * Устанавливает значение x, при неправильном вводе устанавливает значение по умолчанию
+     *
      * @param x
      * @return
      */
     public CoordinatesBuilder setX(String x) {
-        try{
+        try {
             Validator.checkCoordinatesX(x);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             return this;
         }
         this.x = Long.parseLong(x);
         return this;
     }
+
     /**
      * Устанавливает значение y, при неправильном вводе устанавливает значение по умолчанию
+     *
      * @param y
      * @return
      */
     public CoordinatesBuilder setY(String y) {
-        try{
+        try {
             Validator.checkCoordinatesY(y);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             return this;
         }
         this.y = Double.parseDouble(y);

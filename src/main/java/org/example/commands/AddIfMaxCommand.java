@@ -8,7 +8,7 @@ import org.example.managers.CollectionManager;
 /**
  * Команда AddIfMaxCommand
  */
-public class AddIfMaxCommand extends BaseCommand{
+public class AddIfMaxCommand extends BaseCommand {
 
     /**
      * Конструктор
@@ -19,6 +19,7 @@ public class AddIfMaxCommand extends BaseCommand{
 
     /**
      * Метод, выполняющий команду AddIfMaxCommand
+     *
      * @param args
      * @return
      * @throws CommandException
@@ -33,12 +34,11 @@ public class AddIfMaxCommand extends BaseCommand{
             //Копируем элементы из args в data, начиная с индекса 1, чтобы добавить ID в начало
             System.arraycopy(args, 0, data, 1, args.length);
             //Проверяю больше ли переданная организация, чем наибольшая в коллекции
-            if(OrganizationBuilder.buildWithData(data).compareTo(CollectionManager.getMax()) > 0) {
+            if (OrganizationBuilder.buildWithData(data).compareTo(CollectionManager.getMax()) > 0) {
                 //Добавляю организацию
                 CollectionManager.addOrganizationFromData(data);
-            }
-            else System.out.println("Переданная организация не больше, чем наибольшая в коллекции");
-        } catch (DataErrorException e){
+            } else System.out.println("Переданная организация не больше, чем наибольшая в коллекции");
+        } catch (DataErrorException e) {
             throw new CommandException(e.getMessage());
         }
         return null;

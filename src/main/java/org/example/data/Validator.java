@@ -14,6 +14,7 @@ public class Validator {
 
     /**
      * Проверяет объект на null
+     *
      * @param obj объект для проверки
      * @return
      * @throws NullPointerException пробрасывается если объект null
@@ -27,6 +28,7 @@ public class Validator {
 
     /**
      * Проверяет строку на null, незаполненность
+     *
      * @param input
      * @return
      */
@@ -39,6 +41,7 @@ public class Validator {
 
     /**
      * Проверяет id на нахождение в нужном диапазоне, а также на его ОТСУТСТВИЕ в коллекции
+     *
      * @param id
      * @return
      * @throws DataErrorException
@@ -58,6 +61,7 @@ public class Validator {
 
     /**
      * Проверяет строку на тип Long
+     *
      * @param longValue
      * @return
      * @throws DataErrorException
@@ -73,39 +77,42 @@ public class Validator {
 
     /**
      * Проверяет name
-     * @see Organization#name
+     *
      * @param name
      * @return
      * @throws DataErrorException
+     * @see Organization#name
      */
     public static boolean checkName(String name) throws DataErrorException {
         try {
             isNull(name);
         } catch (NullPointerException e) {
-            throw new DataErrorException("Wrong name");
+            throw new DataErrorException("Неверное имя");
         }
         return true;
     }
 
     /**
      * Проверяет X из класса Coordinates
-     * @see Coordinates
+     *
      * @param x
      * @return
      * @throws DataErrorException
+     * @see Coordinates
      */
     public static boolean checkCoordinatesX(String x) throws DataErrorException {
         try {
             isNull(x);
             Long.parseLong(x);
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong x in coordinates");
+            throw new DataErrorException("Неверная X координата");
         }
         return true;
     }
 
     /**
      * Проверяет y из класса Coordinates
+     *
      * @param y
      * @return
      * @throws DataErrorException
@@ -114,34 +121,36 @@ public class Validator {
         try {
             isNull(y);
             double new_y = Double.parseDouble(y);
-            if (new_y > 482) throw new DataErrorException("Wrong y in coordinates");
+            if (new_y > 482) throw new DataErrorException("Неверная Y координата");
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong y in coordinates");
+            throw new DataErrorException("Неверная Y координата");
         }
         return true;
     }
 
     /**
      * Проверяет дату
-     * @see Organization#creationDate
+     *
      * @param date
      * @return
      * @throws DataErrorException
+     * @see Organization#creationDate
      */
     public static boolean checkDate(String date) throws DataErrorException {
-        if (date.equals("current")){
+        if (date.equals("current")) {
             return true;
         }
         try {
             DataParser.formatter.parse(date);
         } catch (ParseException e) {
-            throw new DataErrorException("Wrong data");
+            throw new DataErrorException("Неверная дата");
         }
         return true;
     }
 
     /**
      * Проверяет annualTurnover
+     *
      * @param annualTurnover
      * @return
      * @throws DataErrorException
@@ -150,15 +159,16 @@ public class Validator {
         try {
             isNull(annualTurnover);
             float new_annualTurnover = Float.parseFloat(annualTurnover);
-            if (new_annualTurnover <= 0) throw new DataErrorException("Wrong annual turnover");
+            if (new_annualTurnover <= 0) throw new DataErrorException("Неверный годовой оборот");
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong annual turnover");
+            throw new DataErrorException("Неверный годовой оборот");
         }
         return true;
     }
 
     /**
      * Проверяет employeesCount
+     *
      * @param employeesCount
      * @return
      * @throws DataErrorException
@@ -167,15 +177,16 @@ public class Validator {
         try {
             isNull(employeesCount);
             Integer new_employeesCount = Integer.parseInt(employeesCount);
-            if (new_employeesCount <= 0) throw new DataErrorException("Wrong employees count");
+            if (new_employeesCount <= 0) throw new DataErrorException("Неверное число работников");
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong employees count");
+            throw new DataErrorException("Неверное число работников");
         }
         return true;
     }
 
     /**
      * Проверяет organizationType
+     *
      * @param organizationType
      * @return
      * @throws DataErrorException
@@ -185,13 +196,14 @@ public class Validator {
             isNull(organizationType);
             OrganizationType type = OrganizationType.valueOf(organizationType.toUpperCase());
         } catch (IllegalArgumentException | NullPointerException e) {
-            throw new DataErrorException("Wrong organization type");
+            throw new DataErrorException("Неверный тип организации");
         }
         return true;
     }
 
     /**
      * Проверяет street
+     *
      * @param street
      * @return
      * @throws DataErrorException
@@ -209,6 +221,7 @@ public class Validator {
 
     /**
      * Проверяет zipCode
+     *
      * @param zipCode
      * @return
      * @throws DataErrorException
@@ -224,51 +237,54 @@ public class Validator {
 
     /**
      * Проверяет X из класса Location
-     * @see Location
+     *
      * @param x
      * @return
      * @throws DataErrorException
+     * @see Location
      */
     public static boolean checkLocationX(String x) throws DataErrorException {
         try {
             isNull(x);
             double new_x = Double.parseDouble(x);
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong x in coordinates");
+            throw new DataErrorException("Неправильная X координата локации");
         }
         return true;
     }
 
     /**
      * Проверяет Y из класса Location
-     * @see Location
+     *
      * @param y
      * @return
      * @throws DataErrorException
+     * @see Location
      */
     public static boolean checkLocationY(String y) throws DataErrorException {
         try {
             isNull(y);
             double new_y = Double.parseDouble(y);
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong y in coordinates");
+            throw new DataErrorException("Неправильная Y координата локации");
         }
         return true;
     }
 
     /**
      * Проверяет Z из класса Location
-     * @see Location
+     *
      * @param z
      * @return
      * @throws DataErrorException
+     * @see Location
      */
     public static boolean checkLocationZ(String z) throws DataErrorException {
         try {
             isNull(z);
             Long new_z = Long.parseLong(z);
         } catch (NumberFormatException | NullPointerException e) {
-            throw new DataErrorException("Wrong z in coordinates");
+            throw new DataErrorException("Неправильная Z координата локации");
         }
         return true;
     }
@@ -276,6 +292,7 @@ public class Validator {
 
     /**
      * Проверяет полные данные для объекта
+     *
      * @param data
      * @throws DataErrorException
      */
@@ -295,14 +312,15 @@ public class Validator {
             checkLocationY(data[11]);
             checkLocationZ(data[12]);
         } catch (DataErrorException e) {
-            throw new DataErrorException("Data is not correct:\n\t" + e.getMessage());
+            throw new DataErrorException("Данные неверны:\n\t" + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new DataErrorException("Insufficient data");
+            throw new DataErrorException("Недостаточно данных");
         }
     }
 
     /**
      * Проверяет наличие аргументов в переданной строке команды, разбитой на токены
+     *
      * @param args
      * @return
      * @throws DataErrorException

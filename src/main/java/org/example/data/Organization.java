@@ -102,7 +102,7 @@ public class Organization implements Comparable<Organization> {
                 ", Количество работников: " + employeesCount +
                 ", Тип: " + type +
                 ", Адрес: ");
-        if (officialAddress == null){
+        if (officialAddress == null) {
             sb.append("Неизвестен");
         } else sb.append(officialAddress);
         return sb.toString();
@@ -112,14 +112,14 @@ public class Organization implements Comparable<Organization> {
     /**
      * @return строковое представление для сохранения в файл csv
      */
-    public String toCsv(){
+    public String toCsv() {
         char del = ',';
         StringBuilder sb = new StringBuilder();
         sb.append(id).append(del).append(name).append(del).append(coordinates.toCsv()).append(del)
                 .append(DataParser.formatter.format(creationDate)).append(del)
                 .append(annualTurnover).append(del).append(employeesCount).append(del)
                 .append(type.name()).append(del);
-        if(officialAddress==null){
+        if (officialAddress == null) {
             sb.append(Address.toCsvDefault());
         } else {
             sb.append(officialAddress.toCsv());
@@ -131,6 +131,7 @@ public class Organization implements Comparable<Organization> {
     /**
      * Сравнивает два объекта с определённой логикой,
      * позволяет сортировать в прямом и обратном порядке организации
+     *
      * @param o объект для сравнения
      * @return результат сравнения
      */

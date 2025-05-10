@@ -6,7 +6,7 @@ import org.example.files.PathManager;
 /**
  * Команда save сохраняет коллекцию в файл
  */
-public class SaveCommand extends BaseCommand{
+public class SaveCommand extends BaseCommand {
     public SaveCommand() {
         super("save", "сохранить коллекцию в файл", new String[]{});
     }

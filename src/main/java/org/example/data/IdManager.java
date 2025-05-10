@@ -22,17 +22,19 @@ public class IdManager {
 
     /**
      * Проверяет наличие переданного ID в коллекции
+     *
      * @param id
      * @return
      */
-    public static boolean checkId(Long id){
+    public static boolean checkId(Long id) {
         return idList.contains(id);
     }
 
     /**
      * Генерирует ID и добавляет в список id
-     * @see IdManager#idList
+     *
      * @return Сгенерированное новое ID
+     * @see IdManager#idList
      */
     public static Long generateId() {
         SecureRandom secureRandom = new SecureRandom();
@@ -46,6 +48,7 @@ public class IdManager {
 
     /**
      * Генерирует ID, но не добавляет в список
+     *
      * @return Сгенерированное новое ID
      */
     public static Long generateIdWithoutAdding() {
@@ -59,10 +62,11 @@ public class IdManager {
 
     /**
      * Добавляет ID в список ID
+     *
      * @param id
      * @return
      */
-    public static boolean addId(Long id){
+    public static boolean addId(Long id) {
         if (!idList.contains(id)) {
             idList.add(id);
             return true;
@@ -71,6 +75,7 @@ public class IdManager {
 
     /**
      * Удаляет ID из списка ID
+     *
      * @param id
      * @return
      */

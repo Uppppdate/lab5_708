@@ -33,15 +33,19 @@ public class Address {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Улица: ");
-        if (street==null || street.equals(AddressBuilder.STREET_DEFAULT)){
+        if (street == null || street.equals(AddressBuilder.STREET_DEFAULT)) {
             sb.append("Неизвестна");
-        } else {sb.append(street);}
+        } else {
+            sb.append(street);
+        }
         sb.append(", Индекс: ");
-        if(zipCode==null || zipCode.equals(AddressBuilder.ZIP_CODE_DEFAULT)){
+        if (zipCode == null || zipCode.equals(AddressBuilder.ZIP_CODE_DEFAULT)) {
             sb.append("Неизвестен");
-        } else {sb.append(zipCode);}
+        } else {
+            sb.append(zipCode);
+        }
         sb.append(", Город: ");
-        if (town == null){
+        if (town == null) {
             sb.append("Неизвестен");
         } else {
             sb.append(town);
@@ -52,14 +56,14 @@ public class Address {
     /**
      * @return строка для записи в csv файл
      */
-    public String toCsv(){
+    public String toCsv() {
         char del = ',';
         StringBuilder sb = new StringBuilder();
         sb
                 .append(street).append(del).append(zipCode).append(del);
-        if(town==null){
+        if (town == null) {
             sb.append(Location.toCsvDefault());
-        }else {
+        } else {
             sb.append(town.toCsv());
         }
         return sb.toString();
@@ -68,7 +72,7 @@ public class Address {
     /**
      * @return строка записи в csv по умолчанию
      */
-    public static String toCsvDefault(){
+    public static String toCsvDefault() {
         char del = ',';
         StringBuilder sb = new StringBuilder();
         sb

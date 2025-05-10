@@ -7,7 +7,7 @@ import java.util.Comparator;
 /**
  * Команда print_descending выводит коллекцию в порядке убывания
  */
-public class PrintDescendingCommand extends BaseCommand{
+public class PrintDescendingCommand extends BaseCommand {
     /**
      * Конструктор
      */
@@ -17,6 +17,7 @@ public class PrintDescendingCommand extends BaseCommand{
 
     /**
      * Метод, реализующий команду
+     *
      * @param args
      * @return
      */

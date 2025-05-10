@@ -30,9 +30,10 @@ public class ScriptManager {
 
     /**
      * Аналог метода toStart в console manager'е, только для работы в скрипте
-     * @see ConsoleManager#toStart(String[], InputStream) 
-     * @param args 
+     *
+     * @param args
      * @param is
+     * @see ConsoleManager#toStart(String[], InputStream)
      */
     public void toStart(String[] args, FileInputStream is) {
         Scanner scanner = new Scanner(is);
@@ -41,7 +42,7 @@ public class ScriptManager {
             try {
                 line = scanner.nextLine();
             } catch (NoSuchElementException e) {
-                System.out.println("No line found");
+                System.out.println("Не было получено строки");
                 return;
             }
             String[] tokens = Arrays.stream(line.split(" "))
@@ -62,7 +63,7 @@ public class ScriptManager {
                     //проверяем наличие аргументов
                     try {
                         Validator.checkArgs(tokens);
-                        if (!IdManager.checkId(Long.valueOf(tokens[1]))){
+                        if (!IdManager.checkId(Long.valueOf(tokens[1]))) {
                             throw new DataErrorException("Указанный ID не содержится в коллекции");
                         }
                     } catch (DataErrorException e) {

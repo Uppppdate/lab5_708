@@ -19,13 +19,14 @@ import java.util.*;
 public class ConsoleManager {
     /**
      * Определяет путь к файлу с данными
+     *
      * @param args
      * @param inputStream
      */
     public void toDetermineDataPath(String[] args, InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
-        System.out.println("Enter path to .csv file");
-        System.out.println("or type 'default' to set path as default");
+        System.out.println("Введите путь к .csv файлу");
+        System.out.println("или напишите 'default' чтобы установить путь по умолчанию");
         while (scanner.hasNext()) {
             String path = scanner.nextLine();
             if (path.equals("default")) {
@@ -47,6 +48,7 @@ public class ConsoleManager {
 
     /**
      * Считывает и выполняет команду
+     *
      * @param args
      * @param is
      */
@@ -57,7 +59,7 @@ public class ConsoleManager {
             try {
                 line = scanner.nextLine();
             } catch (NoSuchElementException e) {
-                System.out.println("No line found");
+                System.out.println("Не было получено строки");
                 return;
             }
             String[] tokens = Arrays.stream(line.split(" "))
@@ -74,14 +76,14 @@ public class ConsoleManager {
                     Invoker.getCommands().get("add_if_max").execute(data);
                 }
                 //логика для update
-                if (tokens[0].equals("update")){
+                if (tokens[0].equals("update")) {
                     //проверяем наличие аргументов
                     try {
                         Validator.checkArgs(tokens);
-                        if (!IdManager.checkId(Long.valueOf(tokens[1]))){
+                        if (!IdManager.checkId(Long.valueOf(tokens[1]))) {
                             throw new DataErrorException("Указанный ID не содержится в коллекции");
                         }
-                    } catch (DataErrorException e){
+                    } catch (DataErrorException e) {
                         throw new CommandException(e.getMessage());
                     }
                     String[] data = new String[13];
@@ -95,13 +97,12 @@ public class ConsoleManager {
                     }
                     //Вызываю команду
                     Invoker.getCommands().get("update").execute(data);
-                }
-                else {
+                } else {
                     Invoker.execute(tokens);
                 }
             } catch (CommandException e) {
                 System.out.println(e.getMessage());
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("не нажимай enter, пожалуйста");
             }
         }

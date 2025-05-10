@@ -10,6 +10,7 @@ import org.example.managers.ConsoleManager;
 public class Main {
     /**
      * Главный метод
+     *
      * @param args
      */
     public static void main(String[] args) {

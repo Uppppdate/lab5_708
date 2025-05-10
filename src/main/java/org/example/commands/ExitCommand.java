@@ -3,7 +3,7 @@ package org.example.commands;
 /**
  * Команда exit
  */
-public class ExitCommand extends BaseCommand{
+public class ExitCommand extends BaseCommand {
     /**
      * Конструктор
      */
@@ -13,6 +13,7 @@ public class ExitCommand extends BaseCommand{
 
     /**
      * Метод, реализующий команду
+     *
      * @param args
      * @return
      */

@@ -6,7 +6,7 @@ import org.example.managers.CollectionManager;
 /**
  * Команда update id позволяет перезаписать значение объекта с заданным ID
  */
-public class UpdateCommand extends BaseCommand{
+public class UpdateCommand extends BaseCommand {
     public UpdateCommand() {
         super("update", "обновить значение элемента коллекции, id которого равен заданному", new String[]{"id"});
     }
@@ -23,7 +23,7 @@ public class UpdateCommand extends BaseCommand{
             CollectionManager.removeOrganization(Long.valueOf(args[0]));
             //Добавляю организацию с переданным ID
             CollectionManager.addOrganizationFromData(args);
-        } catch (DataErrorException e){
+        } catch (DataErrorException e) {
             throw new CommandException(e.getMessage());
         }
         return null;

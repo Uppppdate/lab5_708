@@ -3,7 +3,7 @@ package org.example.commands;
 /**
  * Абстрактный класс для описания общего устройства всех команд
  */
-public abstract class BaseCommand implements Command{
+public abstract class BaseCommand implements Command {
     /**
      * Имя команды
      */
@@ -20,9 +20,10 @@ public abstract class BaseCommand implements Command{
 
     /**
      * Базовый конструктор
-     * @param name имя
+     *
+     * @param name        имя
      * @param description описание
-     * @param arguments аргументы
+     * @param arguments   аргументы
      */
     public BaseCommand(String name, String description, String[] arguments) {
         this.name = name;
@@ -42,7 +43,7 @@ public abstract class BaseCommand implements Command{
         return arguments;
     }
 
-    public int getArgAmount(){
+    public int getArgAmount() {
         return arguments.length;
     }
 
@@ -53,7 +54,7 @@ public abstract class BaseCommand implements Command{
         StringBuilder sb = new StringBuilder();
         sb
                 .append(name);
-        for(String argument : arguments) {
+        for (String argument : arguments) {
             sb.append(' ').append(argument);
         }
         sb

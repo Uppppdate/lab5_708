@@ -17,6 +17,7 @@ public class RemoveByIdCommand extends BaseCommand {
 
     /**
      * Метод, реализующий команду
+     *
      * @param args
      * @return
      * @throws CommandException

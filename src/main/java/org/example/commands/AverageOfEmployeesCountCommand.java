@@ -5,7 +5,7 @@ import org.example.managers.CollectionManager;
 /**
  * Команда AverageOfEmployeesCountCommand
  */
-public class AverageOfEmployeesCountCommand extends BaseCommand{
+public class AverageOfEmployeesCountCommand extends BaseCommand {
 
     /**
      * Конструктор
@@ -18,10 +18,11 @@ public class AverageOfEmployeesCountCommand extends BaseCommand{
      * Переменная для работы лямбда выражения в методе execute
      */
     private static Integer amount = 0;
+
     @Override
     public String execute(String[] args) {
         CollectionManager.getOrgSet().forEach(org -> amount += org.getEmployeesCount());
-        float avg = (float) amount /CollectionManager.getOrgSet().size();
+        float avg = (float) amount / CollectionManager.getOrgSet().size();
         System.out.println("Среднее количество работников: " + avg);
         amount = 0;
         return null;
