@@ -40,8 +40,8 @@ public class LocationBuilder {
     /**
      * Устанавливает значение переменной x, при неправильном вводе устанавливает значение по умолчанию
      *
-     * @param x
-     * @return
+     * @param x строка с параметром для записи
+     * @return текущий объект LocationBuilder
      */
     public LocationBuilder setX(String x) {
         try {
@@ -56,8 +56,8 @@ public class LocationBuilder {
     /**
      * Устанавливает значение переменной y, при неправильном вводе устанавливает значение по умолчанию
      *
-     * @param y
-     * @return
+     * @param y строка с параметром для записи
+     * @return текущий объект LocationBuilder
      */
     public LocationBuilder setY(String y) {
         try {
@@ -72,8 +72,8 @@ public class LocationBuilder {
     /**
      * Устанавливает значение переменной z, при неправильном вводе устанавливает значение по умолчанию
      *
-     * @param z
-     * @return
+     * @param z строка с параметром для записи
+     * @return текущий объект LocationBuilder
      */
     public LocationBuilder setZ(String z) {
         try {

@@ -11,12 +11,16 @@ public class SaveCommand extends BaseCommand {
         super("save", "сохранить коллекцию в файл", new String[]{});
     }
 
+    /**
+     * Метод реализует команду save
+     *
+     * @param args не используется
+     */
     @Override
-    public String execute(String[] args) {
+    public void execute(String[] args) {
         //Сохраняю коллекцию
         DataWriter.toSave();
         //Вывожу сообщение
         System.out.println("Коллекция сохранена в файл: \n" + PathManager.CURRENT_DATA_PATH.toFile().getPath());
-        return null;
     }
 }

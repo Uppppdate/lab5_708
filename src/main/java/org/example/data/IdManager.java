@@ -23,8 +23,8 @@ public class IdManager {
     /**
      * Проверяет наличие переданного ID в коллекции
      *
-     * @param id
-     * @return
+     * @param id id
+     * @return true - содержится, false - не содержится
      */
     public static boolean checkId(Long id) {
         return idList.contains(id);
@@ -63,8 +63,8 @@ public class IdManager {
     /**
      * Добавляет ID в список ID
      *
-     * @param id
-     * @return
+     * @param id id
+     * @return true - добавлено, false - не добавлено
      */
     public static boolean addId(Long id) {
         if (!idList.contains(id)) {
@@ -76,8 +76,8 @@ public class IdManager {
     /**
      * Удаляет ID из списка ID
      *
-     * @param id
-     * @return
+     * @param id id
+     * @return true - удалено, false - не удалено
      */
     public static boolean removeId(Long id) {
         if (idList.contains(id)) {

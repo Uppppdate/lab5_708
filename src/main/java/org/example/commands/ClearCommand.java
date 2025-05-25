@@ -1,6 +1,7 @@
 package org.example.commands;
 
 import org.example.managers.CollectionManager;
+import static org.example.Main.clm;
 
 /**
  * Команда clear
@@ -14,15 +15,13 @@ public class ClearCommand extends BaseCommand {
     }
 
     /**
-     * Метод, реализующий команду
+     * Метод, реализующий команду clear
      *
-     * @param args
-     * @return
+     * @param args - не используется
      */
     @Override
-    public String execute(String[] args) {
-        CollectionManager.clearCollection();
+    public void execute(String[] args) {
+        clm.clearCollection();
         System.out.println("Коллекция очищена");
-        return null;
     }
 }

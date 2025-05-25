@@ -1,9 +1,8 @@
 package org.example.commands;
 
-import org.example.managers.CollectionManager;
 import org.example.data.Organization;
-import org.example.data.Validator;
-import org.example.files.DataErrorException;
+
+import static org.example.Main.clm;
 
 import java.util.List;
 
@@ -19,25 +18,22 @@ public class FilterContainsNameCommand extends BaseCommand {
     }
 
     /**
-     * Метод, реализующий команду
+     * Метод, реализующий команду filter_contains_name
      *
-     * @param args
-     * @return
-     * @throws CommandException
+     * @param args содержит в себе имя команды и аргумент в виде подстроки, по которой будет осуществлён поиск
      */
     @Override
-    public String execute(String[] args) throws CommandException {
+    public void execute(String[] args) {
         //Получаю лист со всеми объектами, содержащими в названии переданную подстроку
-        List<Organization> set = CollectionManager.getOrgSet().stream().filter(organization -> organization.getName().contains(args[1])).toList();
+        List<Organization> set = clm.getOrgSet().stream().filter(organization -> organization.getName().contains(args[1])).toList();
         //Проверяю наличие найденных организаций
         if (set.isEmpty()) {
             System.out.println("Не было найдено объектов с такой подстрокой в имени");
         } else {
             //Вывожу в консоль найденные организации
-            for (Organization org : CollectionManager.getOrgSet()) {
+            for (Organization org : set) {
                 System.out.println(org.toString());
             }
         }
-        return null;
     }
 }

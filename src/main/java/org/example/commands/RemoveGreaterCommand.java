@@ -1,11 +1,12 @@
 package org.example.commands;
 
-import org.example.managers.CollectionManager;
 import org.example.data.Organization;
 import org.example.data.Validator;
 import org.example.files.DataErrorException;
 
 import java.util.List;
+
+import static org.example.Main.clm;
 
 /**
  * Команда remove_greater id удаляет из коллекции элементы, превышающие элемент с заданным ID
@@ -18,8 +19,14 @@ public class RemoveGreaterCommand extends BaseCommand {
         super("remove_greater", "удалить из коллекции все элементы, превышающие заданный", new String[]{"id"});
     }
 
+    /**
+     * Метод реализует команду remove_greater
+     *
+     * @param args содержит в себе имя команды и аргумент - id организации для сравнения с другими организациями и удалением больших, чем с переданным id
+     * @throws CommandException любая ошибка в работе команды обёртывается в CommandException и пробрасывается далее
+     */
     @Override
-    public String execute(String[] args) throws CommandException {
+    public void execute(String[] args) throws CommandException {
         //объявляю организацию
         Organization org = null;
         try {
@@ -30,19 +37,18 @@ public class RemoveGreaterCommand extends BaseCommand {
             //Считываю аргумент
             Long id = Long.valueOf(args[1]);
             //Нахожу организацию по ID
-            org = CollectionManager.getOrgById(id);
+            org = clm.getOrgById(id);
         } catch (DataErrorException e) {
             throw new CommandException(e.getMessage());
         }
         //Для последующего лямбда выражения создаю переменную
         Organization finalOrg = org;
         //Нахожу организации, которые больше, чем указанная
-        List<Organization> list = CollectionManager.getOrgSet().stream().filter(organization -> organization.compareTo(finalOrg) > 0).toList();
+        List<Organization> list = clm.getOrgSet().stream().filter(organization -> organization.compareTo(finalOrg) > 0).toList();
         //Удаляю найденные организации
         for (Organization organization : list) {
-            CollectionManager.getOrgSet().remove(organization);
+            clm.getOrgSet().remove(organization);
         }
         System.out.println("Было удалено " + list.size() + " организаций");
-        return null;
     }
 }

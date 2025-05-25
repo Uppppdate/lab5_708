@@ -1,11 +1,12 @@
 package org.example.files;
 
-import org.example.managers.CollectionManager;
 import org.example.data.Organization;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+
+import static org.example.Main.clm;
 
 /**
  * Класс, сохраняющий коллекцию в файл
@@ -19,7 +20,7 @@ public class DataWriter {
             //передаю файл в printWriter
             pw = new PrintWriter(file);
             //перебираю все объекты в коллекции
-            for (Organization org : CollectionManager.getOrgSet()) {
+            for (Organization org : clm.getOrgSet()) {
                 //привожу в вид для записи в csv и записываю
                 pw.write(org.toCsv());
             }

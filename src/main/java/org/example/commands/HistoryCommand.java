@@ -13,13 +13,12 @@ public class HistoryCommand extends BaseCommand {
     }
 
     /**
-     * Метод, реализующий команду
+     * Метод, реализующий команду history
      *
-     * @param args
-     * @return
+     * @param args не используется
      */
     @Override
-    public String execute(String[] args) {
+    public void execute(String[] args) {
         //Счётчик для вывода команд с нумерацией
         int count = 1;
         //Получаю историю команд
@@ -28,6 +27,5 @@ public class HistoryCommand extends BaseCommand {
             System.out.println(count + ". " + command.getName());
             count++;
         }
-        return null;
     }
 }

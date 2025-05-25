@@ -9,13 +9,13 @@ import java.util.Date;
  */
 public class Organization implements Comparable<Organization> {
     private Long id;
-    private String name;
-    private Coordinates coordinates;
-    private java.util.Date creationDate;
-    private float annualTurnover;
-    private Integer employeesCount;
-    private OrganizationType type;
-    private Address officialAddress;
+    private final String name;
+    private final Coordinates coordinates;
+    private final java.util.Date creationDate;
+    private final float annualTurnover;
+    private final Integer employeesCount;
+    private final OrganizationType type;
+    private final Address officialAddress;
 
     public Long getId() {
         return id;
@@ -29,56 +29,8 @@ public class Organization implements Comparable<Organization> {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public float getAnnualTurnover() {
-        return annualTurnover;
-    }
-
-    public void setAnnualTurnover(float annualTurnover) {
-        this.annualTurnover = annualTurnover;
-    }
-
     public Integer getEmployeesCount() {
         return employeesCount;
-    }
-
-    public void setEmployeesCount(Integer employeesCount) {
-        this.employeesCount = employeesCount;
-    }
-
-    public OrganizationType getType() {
-        return type;
-    }
-
-    public void setType(OrganizationType type) {
-        this.type = type;
-    }
-
-    public Address getOfficialAddress() {
-        return officialAddress;
-    }
-
-    public void setOfficialAddress(Address officialAddress) {
-        this.officialAddress = officialAddress;
     }
 
     public Organization(Long id, String name, Coordinates coordinates, Date creationDate, float annualTurnover, Integer employeesCount, OrganizationType type, Address officialAddress) {

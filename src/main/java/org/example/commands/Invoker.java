@@ -13,26 +13,26 @@ public class Invoker {
     /**
      * Хэш мап со всеми командами, где ключ - имя команды, значение - сама команда
      */
-    private static HashMap<String, BaseCommand> commands = new HashMap<>();
+    private static final HashMap<String, BaseCommand> commands = new HashMap<>();
     /**
      * Лист с именами команд с аргументами, необходима для проверки наличия аргументов
      */
-    private static List<String> compoundCommands = new ArrayList<>();
+    private static final List<String> compoundCommands = new ArrayList<>();
 
     /**
      * Deque, хранящая последние 15 команд, которые были использованы
      */
-    private static Deque<BaseCommand> history = new ArrayDeque<>();
+    private static final Deque<BaseCommand> history = new ArrayDeque<>();
 
     /**
      * Константа, определяющая размерность истории команд
      */
     private static final Integer HISTORY_MAX = 15;
 
-    /**
-     * Конструктор с объявлением всех команд и помещением их в hashmap
+    /*
+      Статический блок инициализации с объявлением всех команд и помещением их в hashmap
      */
-    public Invoker() {
+    static {
         //Добавляю команды в hashMap для дальнейшего вызова по имени
         commands.put("info", new InfoCommand());
         commands.put("help", new HelpCommand());

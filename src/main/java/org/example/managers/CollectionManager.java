@@ -2,7 +2,6 @@ package org.example.managers;
 
 import org.example.data.*;
 import org.example.files.DataErrorException;
-import org.example.files.DataParser;
 import org.example.files.DataWriter;
 
 import java.util.*;
@@ -14,48 +13,61 @@ public class CollectionManager {
     /**
      * Переменная, хранящая коллекцию
      */
-    private static LinkedHashSet<Organization> orgSet;
+    private final LinkedHashSet<Organization> orgSet;
 
     /**
      * Дата инициализации
      */
-    private static Date initializationDate;
+    private final Date initializationDate;
 
+    /**
+     * Конструктор, в котором задаётся дата инициализации, а также коллекция
+     */
     public CollectionManager() {
         initializationDate = new Date();
         orgSet = new LinkedHashSet<>();
     }
 
-    public static LinkedHashSet<Organization> getOrgSet() {
+    /**
+     * Метод, возвращающий коллекцию
+     *
+     * @return Объект типа LinkedHashSet, параметризованный Organization, являющийся коллекцией
+     */
+    public LinkedHashSet<Organization> getOrgSet() {
         return orgSet;
     }
 
-    public static Date getInitializationDate() {
+    /**
+     * Метод возвращает дату инициализации коллекции
+     *
+     * @return Объект типа Date, являющийся датой инициализации
+     */
+    public Date getInitializationDate() {
         return initializationDate;
     }
 
     /**
-     * Очищает коллекцию
+     * Метод очищает коллекцию
      */
-    public static void clearCollection() {
+    public void clearCollection() {
         orgSet.clear();
     }
 
     /**
      * @return Максимальный объект в коллекции
      */
-    public static Organization getMax() {
+    public Organization getMax() {
         Optional<Organization> opt = orgSet.stream().max(Comparator.naturalOrder());
         return opt.orElse(null);
     }
 
     /**
-     * Добавляет организацию по не обязательно полным данным
+     * Добавляет организацию по массиву данных, который может быть неполным
      *
-     * @param data
-     * @throws DataErrorException
+     * @param data Массив с данными объекта
+     * @throws DataErrorException Пробрасывается исключение об ошибке в данных
      */
-    public static void addOrganizationFromData(String[] data) throws DataErrorException {
+    public void addOrganizationFromData(String[] data) throws DataErrorException {
         try {
             Validator.checkData(data);
         } finally {
@@ -85,26 +97,26 @@ public class CollectionManager {
     /**
      * Удаляет организацию по ID
      *
-     * @param id
-     * @throws DataErrorException
+     * @param id id
+     * @throws DataErrorException пробрасывается, если переданного id не существует в коллекции
      */
-    public static void removeOrganization(Long id) throws DataErrorException {
+    public void removeOrganization(Long id) throws DataErrorException {
         if (!IdManager.checkId(id)) {
             throw new DataErrorException("Указанного ID не существует");
         }
         IdManager.removeId(id);
         Optional<Organization> organization = orgSet.stream().filter(org -> org.getId().equals(id)).findFirst();
-        organization.ifPresent(value -> orgSet.remove(value));
+        organization.ifPresent(orgSet::remove);
     }
 
     /**
      * Возвращает организацию по переданному ID
      *
-     * @param id
-     * @return Организацию по id
-     * @throws DataErrorException
+     * @param id id
+     * @return Организацию с указанным id
+     * @throws DataErrorException пробрасывается, если указанного id не существует в коллекции
      */
-    public static Organization getOrgById(Long id) throws DataErrorException {
+    public Organization getOrgById(Long id) throws DataErrorException {
         if (!IdManager.checkId(id)) {
             throw new DataErrorException("Указанного ID не существует");
         }
@@ -115,12 +127,12 @@ public class CollectionManager {
     /**
      * Чистит коллекцию от объектов с нулевым id
      */
-    public static void cleanUpCollection() {
+    public void cleanUpCollection() {
         //проверяю наличие объектов с нулевым ID с помощью потоков
-        List<Organization> list = CollectionManager.getOrgSet().stream().filter(org -> org.getId() == 0).toList();
+        List<Organization> list = getOrgSet().stream().filter(org -> org.getId() == 0).toList();
         //удаляю каждый найденный объект из коллекции
         for (Organization org : list) {
-            CollectionManager.getOrgSet().remove(org);
+            getOrgSet().remove(org);
         }
         //перезаписываю файл без объектов с нулевым ID
         DataWriter.toSave();

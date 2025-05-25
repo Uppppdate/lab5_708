@@ -20,10 +20,9 @@ public class ConsoleManager {
     /**
      * Определяет путь к файлу с данными
      *
-     * @param args
-     * @param inputStream
+     * @param inputStream поток данных, с которого будет считан путь к .csv файлу с данными
      */
-    public void toDetermineDataPath(String[] args, InputStream inputStream) {
+    public void toDetermineDataPath(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
         System.out.println("Введите путь к .csv файлу");
         System.out.println("или напишите 'default' чтобы установить путь по умолчанию");
@@ -49,10 +48,9 @@ public class ConsoleManager {
     /**
      * Считывает и выполняет команду
      *
-     * @param args
-     * @param is
+     * @param is - поток данных, с которого будут читаться команды
      */
-    public void toStart(String[] args, InputStream is) {
+    public void toStart(InputStream is) {
         Scanner scanner = new Scanner(is);
         while (scanner.hasNext()) {
             String line;
@@ -69,11 +67,13 @@ public class ConsoleManager {
                 if (tokens[0].equals("add")) {
                     String[] data = DataCollector.collectDataFromConsole(scanner);
                     Invoker.getCommands().get("add").execute(data);
+                    continue;
                 }
                 //логика для add_if_max
                 if (tokens[0].equals("add_if_max")) {
                     String[] data = DataCollector.collectDataFromConsole(scanner);
                     Invoker.getCommands().get("add_if_max").execute(data);
+                    continue;
                 }
                 //логика для update
                 if (tokens[0].equals("update")) {

@@ -1,9 +1,10 @@
 package org.example.commands;
 
+import static org.example.Main.clm;
+
 import org.example.data.IdManager;
 import org.example.data.OrganizationBuilder;
 import org.example.files.DataErrorException;
-import org.example.managers.CollectionManager;
 
 /**
  * Команда AddIfMaxCommand
@@ -20,12 +21,13 @@ public class AddIfMaxCommand extends BaseCommand {
     /**
      * Метод, выполняющий команду AddIfMaxCommand
      *
-     * @param args
-     * @return
-     * @throws CommandException
+     * @param args массив с данными для создания организации без ID
+     * @throws CommandException если есть ошибка в данных,
+     *                          но всё равно добавляет объект со значениями по умолчанию для
+     *                          неправильных данных
      */
     @Override
-    public String execute(String[] args) throws CommandException {
+    public void execute(String[] args) throws CommandException {
         try {
             //Создаю массив для записи данных
             String[] data = new String[13];
@@ -34,13 +36,12 @@ public class AddIfMaxCommand extends BaseCommand {
             //Копируем элементы из args в data, начиная с индекса 1, чтобы добавить ID в начало
             System.arraycopy(args, 0, data, 1, args.length);
             //Проверяю больше ли переданная организация, чем наибольшая в коллекции
-            if (OrganizationBuilder.buildWithData(data).compareTo(CollectionManager.getMax()) > 0) {
+            if (OrganizationBuilder.buildWithData(data).compareTo(clm.getMax()) > 0) {
                 //Добавляю организацию
-                CollectionManager.addOrganizationFromData(data);
+                clm.addOrganizationFromData(data);
             } else System.out.println("Переданная организация не больше, чем наибольшая в коллекции");
         } catch (DataErrorException e) {
             throw new CommandException(e.getMessage());
         }
-        return null;
     }
 }

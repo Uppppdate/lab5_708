@@ -1,7 +1,5 @@
 package org.example.commands;
 
-import org.example.data.Organization;
-
 import java.util.Map;
 
 /**
@@ -16,18 +14,16 @@ public class HelpCommand extends BaseCommand {
     }
 
     /**
-     * Метод, реализующий команду
+     * Метод, реализующий команду help
      *
-     * @param args
-     * @return
+     * @param args не используется
      */
     @Override
-    public String execute(String[] args) {
+    public void execute(String[] args) {
         //Получаю энтри каждой команды из списка команд
         for (Map.Entry<String, BaseCommand> entry : Invoker.getCommands().entrySet()) {
             //Получаю из энтри значение конкретной команды и вывожу помощь по ней в консоль
             System.out.println(entry.getValue().getHelp());
         }
-        return null;
     }
 }

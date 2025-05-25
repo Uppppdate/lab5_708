@@ -54,12 +54,12 @@ public abstract class BaseCommand implements Command {
         StringBuilder sb = new StringBuilder();
         sb
                 .append(name);
-        for (String argument : arguments) {
+        for (String argument : getArguments()) {
             sb.append(' ').append(argument);
         }
         sb
                 .append(" - ")
-                .append(description);
+                .append(getDescription());
         return sb.toString();
     }
 }

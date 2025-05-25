@@ -12,14 +12,12 @@ public class ExitCommand extends BaseCommand {
     }
 
     /**
-     * Метод, реализующий команду
+     * Метод, реализующий команду exit
      *
-     * @param args
-     * @return
+     * @param args не используется
      */
     @Override
-    public String execute(String[] args) {
+    public void execute(String[] args) {
         System.exit(1);
-        return null;
     }
 }

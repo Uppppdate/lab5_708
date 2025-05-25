@@ -41,10 +41,10 @@ public class PathManager {
     }
 
     /**
-     * Устанавливает текущий путь до файла с данными при адекватном переданном пути
+     * Устанавливает текущий путь до файла с данными при правильном переданном пути
      *
-     * @param path
-     * @throws FileErrorException
+     * @param path путь до файла
+     * @throws FileErrorException пробрасывается, если путь неверный
      */
     public static void setCurrentDataPath(String path) throws FileErrorException {
         Path path1;

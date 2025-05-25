@@ -23,18 +23,17 @@ public class ExecuteScriptCommand extends BaseCommand {
     }
 
     /**
-     * Метод, реализующий команду
+     * Метод, реализующий команду execute_script
      *
-     * @param args
-     * @return
-     * @throws CommandException
+     * @param args содержит в себе имя команды и аргумент, который является путём к файлу скрипта
+     * @throws CommandException любая ошибка, возникшая в ходе работы команды будет обёрнута в CommandException и проброшена далее
      */
     @Override
-    public String execute(String[] args) throws CommandException {
+    public void execute(String[] args) throws CommandException {
         //Создаю менеджер скрипта для работы с командами из скрипта
         ScriptManager scriptManager = new ScriptManager();
         //Объявляю файл
-        File script = null;
+        File script;
         try {
             //Получаю файл из пути
             script = PathManager.getFileFromPath(args[1]);
@@ -51,7 +50,7 @@ public class ExecuteScriptCommand extends BaseCommand {
             throw new CommandException(e.getMessage());
         }
         //Объявляю fileInputStream для работы с файлом в потоке
-        FileInputStream is = null;
+        FileInputStream is;
         try {
             is = new FileInputStream(script);
         } catch (FileNotFoundException e) {
@@ -60,9 +59,8 @@ public class ExecuteScriptCommand extends BaseCommand {
         //Добавляю имя файла в стэк используемых файлов(скриптов)
         ScriptManager.getScriptsStack().push(script);
         //Запускаю чтение и выполнение команд из скрипта
-        scriptManager.toStart(args, is);
+        scriptManager.toStart(is);
         //Удаляю имя файла из стэка
         ScriptManager.getScriptsStack().pop();
-        return null;
     }
 }

@@ -1,6 +1,7 @@
 package org.example.commands;
 
 import org.example.managers.CollectionManager;
+import static org.example.Main.clm;
 
 /**
  * Команда AverageOfEmployeesCountCommand
@@ -19,12 +20,15 @@ public class AverageOfEmployeesCountCommand extends BaseCommand {
      */
     private static Integer amount = 0;
 
+    /**
+     * Метод, выполняющий команду average_of_employees_count
+     * @param args не используется здесь
+     */
     @Override
-    public String execute(String[] args) {
-        CollectionManager.getOrgSet().forEach(org -> amount += org.getEmployeesCount());
-        float avg = (float) amount / CollectionManager.getOrgSet().size();
+    public void execute(String[] args) {
+        clm.getOrgSet().forEach(org -> amount += org.getEmployeesCount());
+        float avg = (float) amount / clm.getOrgSet().size();
         System.out.println("Среднее количество работников: " + avg);
         amount = 0;
-        return null;
     }
 }

@@ -8,21 +8,21 @@ import org.example.managers.ConsoleManager;
  * Главный класс
  */
 public class Main {
+    public static CollectionManager clm;
+
     /**
      * Главный метод
      *
-     * @param args
+     * @param args аргументы командной строки
      */
     public static void main(String[] args) {
         //Инициализируем менеджер коллекции
-        CollectionManager clm = new CollectionManager();
+        clm = new CollectionManager();
         //Создаём менеджер консоли
         ConsoleManager csm = new ConsoleManager();
-        //Иницализируем инвокер
-        Invoker inv = new Invoker();
         //Определяем путь к файлу и записываем в переменную
-        csm.toDetermineDataPath(args, System.in);
+        csm.toDetermineDataPath(System.in);
         //Запускаем менеджер консоли
-        csm.toStart(args, System.in);
+        csm.toStart(System.in);
     }
 }

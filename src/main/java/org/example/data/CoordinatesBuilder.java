@@ -34,8 +34,8 @@ public class CoordinatesBuilder {
     /**
      * Устанавливает значение x, при неправильном вводе устанавливает значение по умолчанию
      *
-     * @param x
-     * @return
+     * @param x строка с параметром для записи
+     * @return текущий объект CoordinatesBuilder
      */
     public CoordinatesBuilder setX(String x) {
         try {
@@ -50,8 +50,8 @@ public class CoordinatesBuilder {
     /**
      * Устанавливает значение y, при неправильном вводе устанавливает значение по умолчанию
      *
-     * @param y
-     * @return
+     * @param y строка с параметром для записи
+     * @return текущий объект CoordinatesBuilder
      */
     public CoordinatesBuilder setY(String y) {
         try {

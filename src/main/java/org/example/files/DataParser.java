@@ -1,13 +1,13 @@
 package org.example.files;
 
 import org.example.managers.CollectionManager;
-import org.example.data.Organization;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Scanner;
+
+import static org.example.Main.clm;
 
 /**
  * Класс парсера данных из файла и записи в коллекцию
@@ -18,6 +18,9 @@ public class DataParser {
      * Формат даты
      */
     public static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static {
+        formatter.setLenient(false); // Запрещаем автоматический пересчёт некорректных дат
+    }
 
     /**
      * Метод, реализующий парсинг файла с коллекцией её запись
@@ -50,7 +53,7 @@ public class DataParser {
             String[] data = line.split(",");
             try {
                 //добавляю объект в коллекцию по данным
-                CollectionManager.addOrganizationFromData(data);
+                clm.addOrganizationFromData(data);
             } catch (DataErrorException e) {
                 //при нахождении ошибки вывожу информацию о номере строки и ошибке в ней
                 System.out.println("Ошибка в строке: " + lineNumber + "\n\t" + e.getMessage());
@@ -58,7 +61,7 @@ public class DataParser {
         }
         System.out.println(lineNumber + " строк было прочитано");
         //очищаю коллекцию от объектов с ID 0
-        CollectionManager.cleanUpCollection();
+        clm.cleanUpCollection();
         //закрываю поток сканера, считывавшего файл
         scanner.close();
 

@@ -22,7 +22,7 @@ public class ScriptManager {
     /**
      * Стэк используемых скриптов
      */
-    private static Stack<File> scriptsStack = new Stack<>();
+    private static final Stack<File> scriptsStack = new Stack<>();
 
     public static Stack<File> getScriptsStack() {
         return scriptsStack;
@@ -31,11 +31,10 @@ public class ScriptManager {
     /**
      * Аналог метода toStart в console manager'е, только для работы в скрипте
      *
-     * @param args
-     * @param is
-     * @see ConsoleManager#toStart(String[], InputStream)
+     * @param is поток данных из файла, через который файл будет читаться
+     * @see ConsoleManager#toStart(InputStream)
      */
-    public void toStart(String[] args, FileInputStream is) {
+    public void toStart(FileInputStream is) {
         Scanner scanner = new Scanner(is);
         while (scanner.hasNext()) {
             String line;

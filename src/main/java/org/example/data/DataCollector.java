@@ -41,13 +41,9 @@ public class DataCollector {
         String name = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    name = sc.nextLine();
-                    Validator.checkName(name);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                name = sc.nextLine();
+                Validator.checkName(name);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
             }
@@ -58,13 +54,9 @@ public class DataCollector {
         String x = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    x = sc.nextLine();
-                    Validator.checkCoordinatesX(x);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                x = sc.nextLine();
+                Validator.checkCoordinatesX(x);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
                 System.out.println("X - целое число");
@@ -76,13 +68,9 @@ public class DataCollector {
         String y = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    y = sc.nextLine();
-                    Validator.checkCoordinatesY(y);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                y = sc.nextLine();
+                Validator.checkCoordinatesY(y);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Y - дробное число, меньше 482");
@@ -95,13 +83,9 @@ public class DataCollector {
         String date = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    date = sc.nextLine();
-                    Validator.checkDate(date);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                date = sc.nextLine();
+                Validator.checkDate(date);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Формат даты: yyyy-mm-dd HH:MM:SS");
@@ -114,13 +98,9 @@ public class DataCollector {
         String annualTurnover = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    annualTurnover = sc.nextLine();
-                    Validator.checkAnnualTurnover(annualTurnover);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                annualTurnover = sc.nextLine();
+                Validator.checkAnnualTurnover(annualTurnover);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Годовой оборот - нецелое число, больше 0");
@@ -132,13 +112,9 @@ public class DataCollector {
         String employeesCount = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    employeesCount = sc.nextLine();
-                    Validator.checkEmployeesCount(employeesCount);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                employeesCount = sc.nextLine();
+                Validator.checkEmployeesCount(employeesCount);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Количество работников - целое число, больше 0");
@@ -155,13 +131,9 @@ public class DataCollector {
         String type = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    type = sc.nextLine();
-                    Validator.checkOrganizationType(type);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                type = sc.nextLine();
+                Validator.checkOrganizationType(type);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
             }
@@ -173,13 +145,9 @@ public class DataCollector {
         String street = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    street = sc.nextLine();
-                    Validator.checkStreet(street);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                street = sc.nextLine();
+                Validator.checkStreet(street);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Длина должна быть меньше 85");
@@ -192,13 +160,9 @@ public class DataCollector {
         String zipCode = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    zipCode = sc.nextLine();
-                    Validator.checkZipCode(zipCode);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                zipCode = sc.nextLine();
+                Validator.checkZipCode(zipCode);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
             }
@@ -210,13 +174,9 @@ public class DataCollector {
         String X = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    X = sc.nextLine();
-                    Validator.checkLocationX(X);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                X = sc.nextLine();
+                Validator.checkLocationX(X);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
             }
@@ -228,13 +188,9 @@ public class DataCollector {
         String Y = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    Y = sc.nextLine();
-                    Validator.checkLocationY(Y);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                Y = sc.nextLine();
+                Validator.checkLocationY(Y);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
             }
@@ -246,13 +202,9 @@ public class DataCollector {
         String Z = "";
         while (true) {
             try {
-                if (sc.hasNext()) {
-                    Z = sc.nextLine();
-                    Validator.checkLocationZ(Z);
-                    break;
-                } else {
-                    System.out.println("Неверный ввод");
-                }
+                Z = sc.nextLine();
+                Validator.checkLocationZ(Z);
+                break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Координата Z для локации - целое число");
@@ -275,5 +227,4 @@ public class DataCollector {
 
         return data;
     }
-
 }

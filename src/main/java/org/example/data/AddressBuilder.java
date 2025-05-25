@@ -43,8 +43,8 @@ public class AddressBuilder {
     /**
      * Устанавливает значение переменной street, при неправильном вводе устанавливает значения по умолчанию
      *
-     * @param street
-     * @return
+     * @param street строка с параметром для записи
+     * @return текущий объект AddressBuilder
      */
     public AddressBuilder setStreet(String street) {
         try {
@@ -59,8 +59,8 @@ public class AddressBuilder {
     /**
      * Устанавливает значение переменной zipCode, при неправильном вводе устанавливает значения по умолчанию
      *
-     * @param zipCode
-     * @return
+     * @param zipCode строка с параметром для записи
+     * @return текущий объект AddressBuilder
      */
     public AddressBuilder setZipCode(String zipCode) {
         try {
@@ -73,8 +73,8 @@ public class AddressBuilder {
     }
 
     /**
-     * @param x
-     * @return
+     * @param x строка с параметром для записи
+     * @return текущий объект AddressBuilder
      * @see LocationBuilder#setX(String)
      */
     public AddressBuilder setLocationX(String x) {
@@ -83,8 +83,8 @@ public class AddressBuilder {
     }
 
     /**
-     * @param y
-     * @return
+     * @param y строка с параметром для записи
+     * @return текущий объект AddressBuilder
      * @see LocationBuilder#setY(String)
      */
     public AddressBuilder setLocationY(String y) {
@@ -93,8 +93,8 @@ public class AddressBuilder {
     }
 
     /**
-     * @param z
-     * @return
+     * @param z строка с параметром для записи
+     * @return текущий объект AddressBuilder
      * @see LocationBuilder#setZ(String)
      */
     public AddressBuilder setLocationZ(String z) {

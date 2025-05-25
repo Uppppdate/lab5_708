@@ -1,7 +1,8 @@
 package org.example.commands;
 
 import org.example.files.DataErrorException;
-import org.example.managers.CollectionManager;
+
+import static org.example.Main.clm;
 
 /**
  * Команда update id позволяет перезаписать значение объекта с заданным ID
@@ -12,20 +13,20 @@ public class UpdateCommand extends BaseCommand {
     }
 
     /**
+     * Метод реализует команду update
+     *
      * @param args массив с полными данными для создания организации
-     * @return
-     * @throws CommandException
+     * @throws CommandException любая ошибка в работе команды обёртывается в CommandException и пробрасывается далее
      */
     @Override
-    public String execute(String[] args) throws CommandException {
+    public void execute(String[] args) throws CommandException {
         try {
             //Удаляю организацию с переданным ID
-            CollectionManager.removeOrganization(Long.valueOf(args[0]));
+            clm.removeOrganization(Long.valueOf(args[0]));
             //Добавляю организацию с переданным ID
-            CollectionManager.addOrganizationFromData(args);
+            clm.addOrganizationFromData(args);
         } catch (DataErrorException e) {
             throw new CommandException(e.getMessage());
         }
-        return null;
     }
 }

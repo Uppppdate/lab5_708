@@ -72,8 +72,8 @@ public class OrganizationBuilder {
     /**
      * Устанавливает id. В случае неправильного ввода устанавливает значения по умолчанию.
      *
-     * @param id
-     * @return
+     * @param id строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      */
     public OrganizationBuilder setId(String id) {
         try {
@@ -88,8 +88,8 @@ public class OrganizationBuilder {
     /**
      * Устанавливает name. В случае неправильного ввода устанавливает значения по умолчанию.
      *
-     * @param name
-     * @return
+     * @param name строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      */
     public OrganizationBuilder setName(String name) {
         try {
@@ -102,8 +102,8 @@ public class OrganizationBuilder {
     }
 
     /**
-     * @param x
-     * @return
+     * @param x строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      * @see CoordinatesBuilder#setX(String)
      */
     public OrganizationBuilder setCoordinatesX(String x) {
@@ -112,8 +112,8 @@ public class OrganizationBuilder {
     }
 
     /**
-     * @param y
-     * @return
+     * @param y строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      * @see CoordinatesBuilder#setY(String)
      */
     public OrganizationBuilder setCoordinatesY(String y) {
@@ -124,8 +124,8 @@ public class OrganizationBuilder {
     /**
      * Устанавливает creationDate. В случае неправильного ввода устанавливает значения по умолчанию.
      *
-     * @param creationDate
-     * @return
+     * @param creationDate строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      */
     public OrganizationBuilder setCreationDate(String creationDate) {
         if (creationDate.equals("current")) {
@@ -148,8 +148,8 @@ public class OrganizationBuilder {
     /**
      * Устанавливает annualTurnover. В случае неправильного ввода устанавливает значения по умолчанию.
      *
-     * @param annualTurnover
-     * @return
+     * @param annualTurnover строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      */
     public OrganizationBuilder setAnnualTurnover(String annualTurnover) {
         try {
@@ -164,8 +164,8 @@ public class OrganizationBuilder {
     /**
      * Устанавливает employeesCount. В случае неправильного ввода устанавливает значения по умолчанию.
      *
-     * @param employeesCount
-     * @return
+     * @param employeesCount строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      */
     public OrganizationBuilder setEmployeesCount(String employeesCount) {
         try {
@@ -179,8 +179,8 @@ public class OrganizationBuilder {
 
 
     /**
-     * @param street
-     * @return
+     * @param street строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      * @see AddressBuilder#setStreet(String)
      */
     public OrganizationBuilder setAddressStreet(String street) {
@@ -189,8 +189,8 @@ public class OrganizationBuilder {
     }
 
     /**
-     * @param zipCode
-     * @return
+     * @param zipCode строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      * @see AddressBuilder#setZipCode(String)
      */
     public OrganizationBuilder setAddressZipCode(String zipCode) {
@@ -200,8 +200,8 @@ public class OrganizationBuilder {
 
 
     /**
-     * @param x
-     * @return
+     * @param x строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      * @see AddressBuilder#setLocationX(String)
      */
     public OrganizationBuilder setLocationX(String x) {
@@ -211,8 +211,8 @@ public class OrganizationBuilder {
 
 
     /**
-     * @param y
-     * @return
+     * @param y строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      * @see AddressBuilder#setLocationY(String)
      */
     public OrganizationBuilder setLocationY(String y) {
@@ -221,8 +221,8 @@ public class OrganizationBuilder {
     }
 
     /**
-     * @param z
-     * @return
+     * @param z строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      * @see AddressBuilder#setLocationZ(String)
      */
     public OrganizationBuilder setLocationZ(String z) {
@@ -233,8 +233,8 @@ public class OrganizationBuilder {
     /**
      * Устанавливает type. В случае неправильного ввода устанавливает значения по умолчанию.
      *
-     * @param type
-     * @return
+     * @param type строка с параметром для записи
+     * @return текущий объект OrganizationBuilder
      */
     public OrganizationBuilder setType(String type) {
         try {
