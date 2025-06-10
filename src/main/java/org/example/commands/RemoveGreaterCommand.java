@@ -3,6 +3,7 @@ package org.example.commands;
 import org.example.data.Organization;
 import org.example.data.Validator;
 import org.example.files.DataErrorException;
+import org.example.managers.AuthorizationManager;
 
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class RemoveGreaterCommand extends BaseCommand {
         //Для последующего лямбда выражения создаю переменную
         Organization finalOrg = org;
         //Нахожу организации, которые больше, чем указанная
-        List<Organization> list = clm.getOrgSet().stream().filter(organization -> organization.compareTo(finalOrg) > 0).toList();
+        List<Organization> list = clm.getOrgSet().stream().filter(organization -> organization.compareTo(finalOrg) > 0).filter(organization ->
+                AuthorizationManager.currentUserId == organization.getOwnerId()).toList();
         //Удаляю найденные организации
         for (Organization organization : list) {
             clm.getOrgSet().remove(organization);

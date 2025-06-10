@@ -20,6 +20,7 @@ public class ShowCommand extends BaseCommand {
      */
     @Override
     public void execute(String[] args) {
+        clm.update();
         //Получаю коллекцию
         LinkedHashSet<Organization> set = clm.getOrgSet();
         //Проверяю на наличие элементов

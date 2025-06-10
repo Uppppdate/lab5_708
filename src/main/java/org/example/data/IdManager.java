@@ -1,6 +1,12 @@
 package org.example.data;
 
+import org.example.managers.ConnectionManager;
+
 import java.security.SecureRandom;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -31,19 +37,22 @@ public class IdManager {
     }
 
     /**
-     * Генерирует ID и добавляет в список id
-     *
-     * @return Сгенерированное новое ID
-     * @see IdManager#idList
+     * Обновляет список ID организаций из базы данных
+     * @throws SQLException при ошибках работы с БД
      */
-    public static Long generateId() {
-        SecureRandom secureRandom = new SecureRandom();
-        Long id = secureRandom.nextLong(MAX);
-        while (idList.contains(id)) {
-            id = secureRandom.nextLong(MAX);
+    public static void update() throws SQLException {
+        // Очищаем текущий список
+        idList.clear();
+
+        try (Connection connection = ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT id FROM s465521.organizations")) {
+
+            // Заполняем список ID из результата запроса
+            while (resultSet.next()) {
+                idList.add(resultSet.getLong("id"));
+            }
         }
-        idList.add(id);
-        return id;
     }
 
     /**
@@ -60,29 +69,4 @@ public class IdManager {
         return id;
     }
 
-    /**
-     * Добавляет ID в список ID
-     *
-     * @param id id
-     * @return true - добавлено, false - не добавлено
-     */
-    public static boolean addId(Long id) {
-        if (!idList.contains(id)) {
-            idList.add(id);
-            return true;
-        } else return false;
-    }
-
-    /**
-     * Удаляет ID из списка ID
-     *
-     * @param id id
-     * @return true - удалено, false - не удалено
-     */
-    public static boolean removeId(Long id) {
-        if (idList.contains(id)) {
-            idList.remove(id);
-            return true;
-        } else return false;
-    }
 }

@@ -276,12 +276,12 @@ public class Validator {
         try {
             String errorPrefix = "Данные неверны: ";
             StringBuilder errorBuilder = new StringBuilder(errorPrefix);
-
-            try {
-                checkId(data[0]);
-            } catch (DataErrorException e) {
-                addError(errorBuilder, errorPrefix, e.getMessage());
-            }
+//не используется
+//            try {
+//                checkId(data[0]);
+//            } catch (DataErrorException e) {
+//                addError(errorBuilder, errorPrefix, e.getMessage());
+//            }
 
             try {
                 checkName(data[1]);

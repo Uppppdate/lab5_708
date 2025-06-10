@@ -1,9 +1,11 @@
 package org.example.managers;
 
+import org.example.commands.CommandException;
 import org.example.data.*;
 import org.example.files.DataErrorException;
-import org.example.files.DataWriter;
+import org.example.files.DataParser;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -13,7 +15,7 @@ public class CollectionManager {
     /**
      * Переменная, хранящая коллекцию
      */
-    private final LinkedHashSet<Organization> orgSet;
+    private LinkedHashSet<Organization> orgSet;
 
     /**
      * Дата инициализации
@@ -25,9 +27,20 @@ public class CollectionManager {
      */
     public CollectionManager() {
         initializationDate = new Date();
-        orgSet = new LinkedHashSet<>();
+        update();
+        try {
+            IdManager.update();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
+    public void update(){
+        try {
+            orgSet = DatabaseManager.loadAllOrganizations();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * Метод, возвращающий коллекцию
      *
@@ -50,7 +63,12 @@ public class CollectionManager {
      * Метод очищает коллекцию
      */
     public void clearCollection() {
-        orgSet.clear();
+        orgSet = new LinkedHashSet<>(orgSet.stream().filter(organization -> organization.getOwnerId()!=AuthorizationManager.currentUserId).toList());
+        try {
+            DatabaseManager.saveTable(AuthorizationManager.currentUserId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -67,7 +85,7 @@ public class CollectionManager {
      * @param data Массив с данными объекта
      * @throws DataErrorException Пробрасывается исключение об ошибке в данных
      */
-    public void addOrganizationFromData(String[] data) throws DataErrorException {
+    public void addOrganizationFromData(String[] data) throws DataErrorException, SQLException {
         try {
             Validator.checkData(data);
         } finally {
@@ -75,7 +93,6 @@ public class CollectionManager {
             Arrays.fill(fullsize_data, data.length, fullsize_data.length, "0");
             OrganizationBuilder orb = new OrganizationBuilder();
             Organization org = orb
-                    .setId(fullsize_data[0])
                     .setName(fullsize_data[1])
                     .setCoordinatesX(fullsize_data[2])
                     .setCoordinatesY(fullsize_data[3])
@@ -89,14 +106,16 @@ public class CollectionManager {
                     .setLocationY(fullsize_data[11])
                     .setLocationZ(fullsize_data[12])
                     .build();
+            DatabaseManager.addOrganization(AuthorizationManager.currentUserId, org);
+            org.setOwnerUsername(AuthorizationManager.currentUserName);
+            org.setOwnerId(AuthorizationManager.currentUserId);
             orgSet.add(org);
-            IdManager.addId(org.getId());
+            IdManager.update();
         }
     }
 
     /**
      * Удаляет организацию по ID
-     *
      * @param id id
      * @throws DataErrorException пробрасывается, если переданного id не существует в коллекции
      */
@@ -104,9 +123,14 @@ public class CollectionManager {
         if (!IdManager.checkId(id)) {
             throw new DataErrorException("Указанного ID не существует");
         }
-        IdManager.removeId(id);
         Optional<Organization> organization = orgSet.stream().filter(org -> org.getId().equals(id)).findFirst();
         organization.ifPresent(orgSet::remove);
+        try {
+            DatabaseManager.saveTable(AuthorizationManager.currentUserId);
+            IdManager.update();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -134,7 +158,8 @@ public class CollectionManager {
         for (Organization org : list) {
             getOrgSet().remove(org);
         }
-        //перезаписываю файл без объектов с нулевым ID
-        DataWriter.toSave();
+        //вероятно, уже не нужно.
+//        //перезаписываю файл без объектов с нулевым ID
+//        DataWriter.toSave();
     }
 }

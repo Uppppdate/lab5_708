@@ -9,13 +9,15 @@ import java.util.Date;
  */
 public class Organization implements Comparable<Organization> {
     private Long id;
-    private final String name;
-    private final Coordinates coordinates;
-    private final java.util.Date creationDate;
-    private final float annualTurnover;
-    private final Integer employeesCount;
-    private final OrganizationType type;
-    private final Address officialAddress;
+    private String name;
+    private Coordinates coordinates;
+    private java.util.Date creationDate;
+    private float annualTurnover;
+    private Integer employeesCount;
+    private OrganizationType type;
+    private Address officialAddress;
+    private Long ownerId;
+    private String ownerUsername;
 
     public Long getId() {
         return id;
@@ -25,12 +27,32 @@ public class Organization implements Comparable<Organization> {
         this.id = id;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
+    }
+
     public String getName() {
         return name;
     }
 
     public Integer getEmployeesCount() {
         return employeesCount;
+    }
+
+    public Organization() {
+
     }
 
     public Organization(Long id, String name, Coordinates coordinates, Date creationDate, float annualTurnover, Integer employeesCount, OrganizationType type, Address officialAddress) {
@@ -48,6 +70,7 @@ public class Organization implements Comparable<Organization> {
     public String toString() {
         StringBuilder sb = new StringBuilder("Организация: " + name +
                 ", ID: " + id +
+                ", Имя создателя: " + ownerUsername +
                 ", Координаты: " + coordinates +
                 ", Дата: " + DataParser.formatter.format(creationDate) +
                 ", Годовой оборот: " + annualTurnover +
@@ -103,5 +126,53 @@ public class Organization implements Comparable<Organization> {
 
         // 3. Если всё равно одинаково — сравниваем по ID (уникальный параметр)
         return Long.compare(this.id, o.id);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public float getAnnualTurnover() {
+        return annualTurnover;
+    }
+
+    public void setAnnualTurnover(float annualTurnover) {
+        this.annualTurnover = annualTurnover;
+    }
+
+    public void setEmployeesCount(Integer employeesCount) {
+        this.employeesCount = employeesCount;
+    }
+
+    public OrganizationType getType() {
+        return type;
+    }
+
+    public void setType(OrganizationType type) {
+        this.type = type;
+    }
+
+    public Address getOfficialAddress() {
+        return officialAddress;
+    }
+
+    public void setOfficialAddress(Address officialAddress) {
+        this.officialAddress = officialAddress;
     }
 }

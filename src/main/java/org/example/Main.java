@@ -21,8 +21,6 @@ public class Main {
      * @param args аргументы командной строки
      */
     public static void main(String[] args) throws SQLException {
-        //Инициализируем менеджер коллекции
-        clm = new CollectionManager();
         //Создаём менеджер консоли
         ConsoleManager csm = new ConsoleManager();
         //Авторизация
@@ -37,9 +35,10 @@ public class Main {
                 Validator.checkName(command);
                 if (command.equals("login")) {
                     aum.toAuthorize();
-                }
-                if (command.equals("register")) {
+                } else if (command.equals("register")){
                     aum.toRegister();
+                } else {
+                    continue;
                 }
                 break;
             } catch (AuthorizationException e) {
@@ -48,6 +47,8 @@ public class Main {
                 System.out.println("Неверная команда");
             }
         }
+        //Инициализируем менеджер коллекции
+        clm = new CollectionManager();
         //Запускаем менеджер консоли
         csm.toStart(System.in);
     }

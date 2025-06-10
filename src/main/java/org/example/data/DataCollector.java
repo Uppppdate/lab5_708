@@ -1,7 +1,9 @@
 package org.example.data;
 
 import org.example.files.DataErrorException;
+import org.example.files.DataParser;
 
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -85,6 +87,9 @@ public class DataCollector {
             try {
                 date = sc.nextLine();
                 Validator.checkDate(date);
+                if(date.equals("current")){
+                    date = DataParser.formatter.format(new Date().getTime());
+                }
                 break;
             } catch (DataErrorException e) {
                 System.out.println(e.getMessage());

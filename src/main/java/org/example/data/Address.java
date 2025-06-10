@@ -4,12 +4,16 @@ package org.example.data;
  * Класс Address
  */
 public class Address {
+    private Long id;
     private String street;
     private String zipCode;
     /**
      * Переменная классa Location
      */
     private Location town;
+
+    public Address() {
+    }
 
     public Address(String street, String zipCode, Location town) {
         this.street = street;
@@ -21,12 +25,24 @@ public class Address {
         return street;
     }
 
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
     public String getZipCode() {
         return zipCode;
     }
 
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
     public Location getTown() {
         return town;
+    }
+
+    public void setTown(Location town) {
+        this.town = town;
     }
 
     @Override
@@ -81,4 +97,13 @@ public class Address {
                 .append(Location.toCsvDefault());
         return sb.toString();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

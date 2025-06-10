@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class AuthorizationManager {
-    public static String currentUsername;
-
+    public static long currentUserId;
+    public static String currentUserName;
     public static boolean isLogged;
 
     public void toRegister() throws DataErrorException, AuthorizationException {
@@ -37,8 +37,18 @@ public class AuthorizationManager {
             String query = "INSERT INTO s465521.\"users\" (username, password_hash) VALUES ('" + name + "', '" + hash_password + "');";
             try {
                 ConnectionManager.execute(query);
-                currentUsername = name;
+                try (Connection conn = ConnectionManager.getConnection();
+                     PreparedStatement ps = conn.prepareStatement(
+                             "SELECT id FROM s465521.users WHERE username = ? AND password_hash = ?")) {
+
+                    ps.setString(1, name);
+                    ps.setString(2, hash_password);
+
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) currentUserId = rs.getLong("id");
+                }
                 isLogged = true;
+                currentUserName = name;
                 System.out.println("Новый пользователь успешно авторизован");
             } catch (SQLException e) {
                 throw new AuthorizationException("Такое имя пользователя уже есть");
@@ -54,44 +64,38 @@ public class AuthorizationManager {
         String username;
         try {
             System.out.println("Введите логин");
-            username = scanner.nextLine();
+            username = scanner.nextLine().split(" ")[0];
             Validator.checkName(username);
-            if(!checkUserName(username)){
+            if (!checkUserName(username)) {
                 throw new AuthorizationException("Неверный логин");
             }
         } catch (DataErrorException e) {
             throw new AuthorizationException("Неверный логин");
         }
         String password;
-        int count = 3;
-        while (count > 0) {
-            try {
-                System.out.println("Введите логин");
-                password = scanner.nextLine();
-                Validator.checkName(password);
-                checkPassword(username, password);
-                System.out.println("Вы успешно вошли в аккаунт: " + username);
-                break;
-            } catch (DataErrorException e) {
-                count--;
-                if (count == 0) {
-                    throw new AuthorizationException("Вспоминайте пароль!");
-                }
-                System.out.println("Неверный пароль, осталось попыток: " + count);
-            }
-        }
-    }
-
-    public static boolean checkUser(String name, String password) throws AuthorizationException {
-        if (checkUserName(name)) {
-            if (checkPassword(name, password)) {
-                currentUsername = name;
-                return true;
-            } else {
+        try {
+            System.out.println("Введите пароль");
+            password = scanner.nextLine();
+            Validator.checkName(password);
+            if (!checkPassword(username, password)) {
                 throw new AuthorizationException("Неверный пароль");
             }
-        } else {
-            throw new AuthorizationException("Нет такого пользователя");
+            System.out.println("Вы успешно вошли в аккаунт: " + username);
+            try (Connection conn = ConnectionManager.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(
+                         "SELECT id FROM s465521.users WHERE username = ? AND password_hash = ?")) {
+
+                ps.setString(1, username);
+                ps.setString(2, DigestUtils.sha3_224Hex(password));
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) currentUserId = rs.getLong("id");
+                currentUserName = username;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (DataErrorException e) {
+            throw new AuthorizationException("Вспоминайте пароль!");
         }
     }
 
@@ -118,13 +122,16 @@ public class AuthorizationManager {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                String passwordToCheck = rs.getString("password");
+                String passwordToCheck = rs.getString("password_hash");
+                //костыль, поскольку таблица создана с фиксированным размером пароля больше чем надо и остаток заполнен пробелами(
+                passwordToCheck = passwordToCheck.split(" ")[0];
                 String hashedPassword = hashPassword(password);
-                return passwordToCheck.equals(hashedPassword);
+                return hashedPassword.equals(passwordToCheck);
+
             }
 
         } catch (SQLException e) {
-            System.out.println("Error by checking pasword...");
+            System.out.println("Error by checking password...");
         }
 
         return false;

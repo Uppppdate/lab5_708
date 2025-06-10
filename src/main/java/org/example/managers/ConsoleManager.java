@@ -17,33 +17,6 @@ import java.util.*;
  * Менеджер для работы с консолью
  */
 public class ConsoleManager {
-    /**
-     * Определяет путь к файлу с данными
-     *
-     * @param inputStream поток данных, с которого будет считан путь к .csv файлу с данными
-     */
-    public void toDetermineDataPath(InputStream inputStream) {
-        Scanner scanner = new Scanner(inputStream);
-        System.out.println("Введите путь к .csv файлу");
-        System.out.println("или напишите 'default' чтобы установить путь по умолчанию");
-        while (scanner.hasNext()) {
-            String path = scanner.nextLine();
-            if (path.equals("default")) {
-                PathManager.setCurrentDataPathAsDefault();
-                break;
-            }
-            try {
-                PathManager.getFileFromPath(path);
-                PathManager.setCurrentDataPath(path);
-                break;
-            } catch (FileErrorException e) {
-                System.out.println(e.getMessage());
-            } catch (DataErrorException e) {
-                System.out.println("Неправильно передан путь: " + e);
-            }
-        }
-        DataParser.toParse();
-    }
 
     /**
      * Считывает и выполняет команду
@@ -82,6 +55,9 @@ public class ConsoleManager {
                         Validator.checkArgs(tokens);
                         if (!IdManager.checkId(Long.valueOf(tokens[1]))) {
                             throw new DataErrorException("Указанный ID не содержится в коллекции");
+                        }
+                        if(DatabaseManager.canEditOrganization(AuthorizationManager.currentUserId, Long.valueOf(tokens[1]))){
+                            throw new CommandException("У Вас нет доступа к организации с id: " + tokens[1]);
                         }
                     } catch (DataErrorException e) {
                         throw new CommandException(e.getMessage());

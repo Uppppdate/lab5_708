@@ -1,6 +1,12 @@
 package org.example.commands;
 
 import org.example.files.DataErrorException;
+import org.example.managers.AuthorizationManager;
+import org.example.managers.CollectionManager;
+import org.example.managers.DatabaseManager;
+
+import java.sql.SQLException;
+import java.util.Arrays;
 
 import static org.example.Main.clm;
 
@@ -21,12 +27,11 @@ public class UpdateCommand extends BaseCommand {
     @Override
     public void execute(String[] args) throws CommandException {
         try {
-            //Удаляю организацию с переданным ID
-            clm.removeOrganization(Long.valueOf(args[0]));
-            //Добавляю организацию с переданным ID
-            clm.addOrganizationFromData(args);
-        } catch (DataErrorException e) {
-            throw new CommandException(e.getMessage());
+            String[] args2 = Arrays.copyOfRange(args, 1, args.length);
+            DatabaseManager.updateById(Long.parseLong(args[0]), args2, AuthorizationManager.currentUserId);
+            clm.update();
+        } catch (SQLException | DataErrorException e) {
+            throw new RuntimeException(e);
         }
     }
 }

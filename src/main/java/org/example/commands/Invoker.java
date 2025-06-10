@@ -40,7 +40,6 @@ public class Invoker {
         commands.put("history", new HistoryCommand());
         commands.put("show", new ShowCommand());
         commands.put("clear", new ClearCommand());
-        commands.put("save", new SaveCommand());
         commands.put("average_of_employees_count", new AverageOfEmployeesCountCommand());
         commands.put("print_descending", new PrintDescendingCommand());
         commands.put("execute_script", new ExecuteScriptCommand());
