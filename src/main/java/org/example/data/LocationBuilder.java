@@ -89,9 +89,9 @@ public class LocationBuilder {
      * @return Собранный объект Location или null, если все значения по умолчанию
      */
     public Location build() {
-        if (x == X_DEFAULT && y == Y_DEFAULT && z.equals(Z_DEFAULT)) {
-            return null;
-        }
+//        if (x == X_DEFAULT && y == Y_DEFAULT && z.equals(Z_DEFAULT)) {
+//            return null;
+//        }
         Location location = new Location(x, y, z);
         setValuesAsDefault();
         return location;

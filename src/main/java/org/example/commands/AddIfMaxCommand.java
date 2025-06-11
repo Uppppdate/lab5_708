@@ -43,8 +43,8 @@ public class AddIfMaxCommand extends BaseCommand {
             if (OrganizationBuilder.buildWithData(data).compareTo(clm.getMax()) > 0) {
                 //Добавляю организацию
                 clm.addOrganizationFromData(data);
-                DatabaseManager.saveTable(AuthorizationManager.currentUserId);
-                IdManager.update();
+//                DatabaseManager.saveTable(AuthorizationManager.currentUserId);
+//                IdManager.update();
             } else System.out.println("Переданная организация не больше, чем наибольшая в коллекции");
         } catch (DataErrorException | SQLException e) {
             throw new CommandException(e.getMessage());

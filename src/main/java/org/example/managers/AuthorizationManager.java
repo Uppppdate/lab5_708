@@ -33,7 +33,7 @@ public class AuthorizationManager {
             throw new DataErrorException("Введите пароль дважды");
         }
         if (password1.equals(password2)) {
-            String hash_password = DigestUtils.sha3_224Hex(password2);
+            String hash_password = DigestUtils.sha512_224Hex(password2);
             String query = "INSERT INTO s465521.\"users\" (username, password_hash) VALUES ('" + name + "', '" + hash_password + "');";
             try {
                 ConnectionManager.execute(query);
@@ -86,7 +86,7 @@ public class AuthorizationManager {
                          "SELECT id FROM s465521.users WHERE username = ? AND password_hash = ?")) {
 
                 ps.setString(1, username);
-                ps.setString(2, DigestUtils.sha3_224Hex(password));
+                ps.setString(2, DigestUtils.sha512_224Hex(password));
 
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) currentUserId = rs.getLong("id");
@@ -127,9 +127,7 @@ public class AuthorizationManager {
                 passwordToCheck = passwordToCheck.split(" ")[0];
                 String hashedPassword = hashPassword(password);
                 return hashedPassword.equals(passwordToCheck);
-
             }
-
         } catch (SQLException e) {
             System.out.println("Error by checking password...");
         }
@@ -138,7 +136,7 @@ public class AuthorizationManager {
     }
 
     private static String hashPassword(String password) {
-        return DigestUtils.sha3_224Hex(password);
+        return DigestUtils.sha512_224Hex(password);
     }
 
 

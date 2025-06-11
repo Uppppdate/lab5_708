@@ -110,10 +110,10 @@ public class AddressBuilder {
     public Address build() {
         //Собираем локацию через LocationBuilder
         Location location = lcb.build();
-        //Проверяем на дефолтность значений и возвращаем null, если ничего не известно
-        if (street.equals(STREET_DEFAULT) && zipCode.equals(ZIP_CODE_DEFAULT) && location == null) {
-            return null;
-        }
+//        //Проверяем на дефолтность значений и возвращаем null, если ничего не известно
+//        if (street.equals(STREET_DEFAULT) && zipCode.equals(ZIP_CODE_DEFAULT) && location == null) {
+//            return null;
+//        }
         Address address = new Address(street, zipCode, location);
         //Обнуляем значения
         setValuesAsDefault();
