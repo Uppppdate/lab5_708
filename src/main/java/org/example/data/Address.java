@@ -49,13 +49,13 @@ public class Address {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Улица: ");
-        if (street == null || street.equals(AddressBuilder.STREET_DEFAULT)) {
+        if (street == null || street.equals(AddressBuilder.STREET_DEFAULT) || street.equals("\n") || street.isEmpty()) {
             sb.append("Неизвестна");
         } else {
             sb.append(street);
         }
         sb.append(", Индекс: ");
-        if (zipCode == null || zipCode.equals(AddressBuilder.ZIP_CODE_DEFAULT)) {
+        if (zipCode == null || zipCode.equals(AddressBuilder.ZIP_CODE_DEFAULT) || zipCode.equals("\n")) {
             sb.append("Неизвестен");
         } else {
             sb.append(zipCode);

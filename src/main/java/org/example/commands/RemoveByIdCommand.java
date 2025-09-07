@@ -31,7 +31,7 @@ public class RemoveByIdCommand extends BaseCommand {
         try {
             //Проверяю аргументы
             Validator.checkLong(args[1]);
-            if(DatabaseManager.canEditOrganization(AuthorizationManager.currentUserId, Long.valueOf(args[1]))){
+            if(!DatabaseManager.canEditOrganization(AuthorizationManager.currentUserId, Long.valueOf(args[1]))){
                 throw new CommandException("У Вас нет доступа к организации с id: " + args[1]);
             }
         } catch (DataErrorException e) {

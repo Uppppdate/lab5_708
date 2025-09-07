@@ -4,7 +4,9 @@ import org.example.data.Organization;
 import org.example.data.Validator;
 import org.example.files.DataErrorException;
 import org.example.managers.AuthorizationManager;
+import org.example.managers.DatabaseManager;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.example.Main.clm;
@@ -49,8 +51,12 @@ public class RemoveGreaterCommand extends BaseCommand {
                 AuthorizationManager.currentUserId == organization.getOwnerId()).toList();
         //Удаляю найденные организации
         for (Organization organization : list) {
-            clm.getOrgSet().remove(organization);
+            try {
+                clm.removeOrganization(organization.getId());
+            } catch (DataErrorException e) {
+            }
         }
+        //Обновляю коллекцию в базе данных
         System.out.println("Было удалено " + list.size() + " организаций");
     }
 }

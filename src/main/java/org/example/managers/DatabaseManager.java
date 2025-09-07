@@ -1,5 +1,6 @@
 package org.example.managers;
 
+import org.example.Main;
 import org.example.commands.CommandException;
 import org.example.data.*;
 import org.example.files.DataErrorException;
@@ -7,6 +8,7 @@ import org.example.files.DataErrorException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -123,31 +125,17 @@ public class DatabaseManager {
             connection = ConnectionManager.getConnection();
             connection.setAutoCommit(false);
 
-            // 1. Получаем текущие ID организаций пользователя из БД
-            HashSet<Long> dbIds = getOrganizationIdsForUser(connection, ownerId);
+            // 1. Удаляем все организации текущего пользователя из БД
+            deleteAllOrganizationsByOwner(connection, ownerId);
 
-            // 2. Создаем копию коллекции для обработки
-            HashSet<Organization> currentOrgs = new HashSet<>(clm.getOrgSet());
-
-            // 3. Обновляем или добавляем организации
-            Iterator<Organization> iterator = currentOrgs.iterator();
-            while (iterator.hasNext()) {
-                Organization org = iterator.next();
-                if (dbIds.contains(org.getId())) {
-                    // Обновляем существующую запись
-                    updateOrganization(connection, ownerId, org);
-                    dbIds.remove(org.getId()); // Помечаем как обработанную
-                } else {
-                    // Добавляем новую организацию
-                    long newId = addOrganization(connection, ownerId, org);
+            // 2. Вставляем все организации из текущей коллекции
+            for (Organization org : clm.getOrgSet()) {
+                if (org.getOwnerId().equals(ownerId)) {
+                    long newId = insertOrganizationWithId(connection, org, ownerId);
                     org.setId(newId); // Обновляем ID в объекте
                 }
             }
 
-            // 4. Удаляем организации, отсутствующие в коллекции
-            for (Long idToDelete : dbIds) {
-                deleteOrganization(connection, ownerId, idToDelete);
-            }
             connection.commit();
         } catch (SQLException e) {
             if (connection != null) connection.rollback();
@@ -156,6 +144,59 @@ public class DatabaseManager {
             if (connection != null) {
                 connection.setAutoCommit(true);
                 connection.close();
+            }
+        }
+    }
+
+    private static void deleteAllOrganizationsByOwner(Connection connection, long ownerId) throws SQLException {
+        String sql = "DELETE FROM s465521.organizations WHERE owner_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, ownerId);
+            ps.executeUpdate();
+        }
+    }
+
+    private static long insertOrganizationWithId(Connection connection, Organization org, long ownerId) throws SQLException {
+        // 1. Добавляем локацию
+        Location town = org.getOfficialAddress().getTown();
+        long locationId = insertLocation(connection, town.getX(), town.getY(), town.getZ());
+
+        // 2. Добавляем адрес
+        Address address = org.getOfficialAddress();
+        long addressId = insertAddress(connection, address.getStreet(), address.getZipCode(), locationId);
+
+        // 3. Добавляем организацию с сохранением ID
+        String sql = "INSERT INTO s465521.organizations (" +
+                "id, name, creation_date, annual_turnover, employees_count, " +
+                "type, coordinates_x, coordinates_y, address_id, owner_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?::s465521.organization_type, ?, ?, ?, ?) " +
+                "RETURNING id";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setLong(1, org.getId());
+            ps.setString(2, org.getName());
+            ps.setTimestamp(3, new Timestamp(org.getCreationDate().getTime()));
+            ps.setFloat(4, org.getAnnualTurnover());
+
+            if (org.getEmployeesCount() != null) {
+                ps.setInt(5, org.getEmployeesCount());
+            } else {
+                ps.setNull(5, Types.INTEGER);
+            }
+
+            ps.setString(6, org.getType().name());
+
+            Coordinates coord = org.getCoordinates();
+            ps.setLong(7, coord.getX());
+            ps.setDouble(8, coord.getY());
+
+            ps.setLong(9, addressId);
+            ps.setLong(10, ownerId);
+
+            ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) return rs.getLong(1);
+                else throw new SQLException("Organization insertion failed");
             }
         }
     }
@@ -402,8 +443,8 @@ public class DatabaseManager {
      * @param orgId  id организации для проверки
      * @return true если пользователь может редактировать организацию
      */
-    public static boolean canEditOrganization(long userId, Long orgId) {
-        return orgId.equals(userId);
+    public static boolean canEditOrganization(long userId, Long orgId) throws DataErrorException {
+        return clm.getOrgById(orgId).getOwnerId().equals(userId);
     }
 
     /**
@@ -466,7 +507,7 @@ public class DatabaseManager {
             connection.setAutoCommit(false);
 
             // 1. Проверяем права на редактирование
-            if (!DatabaseManager.canEditOrganization(ownerId, clm.getOrgById(id).getOwnerId())) {
+            if (!DatabaseManager.canEditOrganization(ownerId, id)) {
                 throw new CommandException("У вас нет прав для редактирования этой организации");
             }
 
@@ -479,7 +520,11 @@ public class DatabaseManager {
             java.util.Date creationDate;
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                creationDate = dateFormat.parse(data[3]);
+                if(data[3].equalsIgnoreCase("current")){
+                    creationDate = new Date();
+                } else {
+                    creationDate = dateFormat.parse(data[3]);
+                }
             } catch (ParseException e) {
                 throw new IllegalArgumentException("Неверный формат даты. Используйте формат: yyyy-MM-dd HH:mm:ss");
             }

@@ -56,7 +56,7 @@ public class ConsoleManager {
                         if (!IdManager.checkId(Long.valueOf(tokens[1]))) {
                             throw new DataErrorException("Указанный ID не содержится в коллекции");
                         }
-                        if(DatabaseManager.canEditOrganization(AuthorizationManager.currentUserId, Long.valueOf(tokens[1]))){
+                        if(!DatabaseManager.canEditOrganization(AuthorizationManager.currentUserId, Long.valueOf(tokens[1]))){
                             throw new CommandException("У Вас нет доступа к организации с id: " + tokens[1]);
                         }
                     } catch (DataErrorException e) {
@@ -80,6 +80,9 @@ public class ConsoleManager {
                 System.out.println(e.getMessage());
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("не нажимай enter, пожалуйста");
+            }
+            catch (NoSuchElementException e){
+                System.out.println("не нажимай ctrl+D, пожалуйста");
             }
         }
     }

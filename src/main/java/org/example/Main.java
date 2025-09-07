@@ -31,11 +31,11 @@ public class Main {
                 System.out.println("Введите команду:");
                 System.out.println("register - зарегистрироваться");
                 System.out.println("login - войти в аккаунт");
-                String command = scanner.nextLine();
+                String command = scanner.nextLine().trim();
                 Validator.checkName(command);
                 if (command.equals("login")) {
                     aum.toAuthorize();
-                } else if (command.equals("register")){
+                } else if (command.equals("register")) {
                     aum.toRegister();
                 } else {
                     continue;
@@ -52,4 +52,5 @@ public class Main {
         //Запускаем менеджер консоли
         csm.toStart(System.in);
     }
+    //execute_script src/main/resources/script.txt
 }
