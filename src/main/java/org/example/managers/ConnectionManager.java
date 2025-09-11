@@ -4,13 +4,13 @@ import java.sql.*;
 
 public class ConnectionManager {
 
-//    private static final String DB_USERNAME = "s409333";
-//    private static final String DB_PASSWORD = "c2tTRoqLv3E5TpqF";
-//    private static final String DB_URL = "jdbc:postgresql://pg:5432/studs";
+//    private static final String DB_USERNAME = "s465521";
+//    private static final String DB_PASSWORD = "wSeLlI0A3tb2Ct45";
+//    private static final String DB_URL = "jdbc:postgresql://localhost:5432/studs?useUnicode=yes&characterEncoding=UTF-8";
 
-    private static final String DB_USERNAME = "postgres";
-    private static final String DB_PASSWORD = "root";
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String DB_USERNAME = "s465521";
+    private static final String DB_PASSWORD = "wSeLlI0A3tb2Ct45";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5433/studs";
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);

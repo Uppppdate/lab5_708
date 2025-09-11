@@ -212,7 +212,11 @@ public class Validator {
     public static void checkZipCode(String zipCode) throws DataErrorException {
         try {
             isNull(zipCode);
-        } catch (NullPointerException e) {
+            if(zipCode.length()>20){
+                throw new DataErrorException("Индекс не может быть больше 20 символов");
+            }
+        }
+        catch (NullPointerException e) {
             throw new DataErrorException("Неверный индекс");
         }
     }

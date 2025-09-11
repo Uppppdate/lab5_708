@@ -53,4 +53,5 @@ public class Main {
         csm.toStart(System.in);
     }
     //execute_script src/main/resources/script.txt
+    //ssh -p 2222 s465521@helios.cs.ifmo.ru -Lport:5432:localhost:5432
 }
